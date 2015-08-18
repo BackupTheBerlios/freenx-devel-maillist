@@ -1,0 +1,1952 @@
+From tutey at o2.pl  Tue Dec 11 22:40:50 2007
+From: tutey at o2.pl (Maciej Sieczka)
+Date: Tue, 11 Dec 2007 22:40:50 +0100
+Subject: [Freenx-devel] cannot join Freenx user ML
+Message-ID: <475F03E2.1020907@o2.pl>
+
+Hi
+
+Few days ago I tried to join Freenx user ML without success.
+I entered my email at [1] and never got a confirmation
+message. Tried again and the same. Is the list down?
+
+Maciek
+
+
+
+From tutey at o2.pl  Tue Dec 11 22:45:35 2007
+From: tutey at o2.pl (Maciej Sieczka)
+Date: Tue, 11 Dec 2007 22:45:35 +0100
+Subject: [Freenx-devel] how to allow only selected programs via NX?
+Message-ID: <475F04FF.90903@o2.pl>
+
+I asked this question on forum [1] but nobody replied. As I
+cannot join the user ML (se my other message sent just a
+moment ago) I'm sending my question here:
+
+Is it possible to enable only selected programs to be run on
+the server, for some users? I 'd like to achieve that for
+eg. OO.org Base. I know I can set up the user's client so
+that it automatically launches the selected program, but the
+user still could modify his client's settings to gain access
+to full desktop or run another program instead. I don't want
+those users to be able to run other apps or the full
+desktop, even if they edit their client settings.
+
+Any hints more than welcome!
+
+My server is Ubuntu Dapper/Gnome running freenx 0.7.1.
+Client is !M 3.0.0-89.
+
+[1]http://developer.berlios.de/forum/message.php?msg_id=41233
+
+Maciek
+
+
+From tutey at o2.pl  Tue Dec 11 22:46:17 2007
+From: tutey at o2.pl (Maciej Sieczka)
+Date: Tue, 11 Dec 2007 22:46:17 +0100
+Subject: [Freenx-devel] cannot join Freenx user ML
+In-Reply-To: <475F03E2.1020907@o2.pl>
+References: <475F03E2.1020907@o2.pl>
+Message-ID: <475F0529.1060105@o2.pl>
+
+Maciej Sieczka wrote:
+
+> Few days ago I tried to join Freenx user ML without success.
+> I entered my email at [1]
+
+The missing link:
+
+[1]https://mail.kde.org/mailman/listinfo/freenx-knx/
+
+Maciek
+
+
+From jon at severinsson.net  Wed Dec 12 21:02:03 2007
+From: jon at severinsson.net (Jon Severinsson)
+Date: Wed, 12 Dec 2007 21:02:03 +0100
+Subject: [Freenx-devel] how to allow only selected programs via NX?
+In-Reply-To: <475F04FF.90903@o2.pl>
+References: <475F04FF.90903@o2.pl>
+Message-ID: <47603E3B.3060708@severinsson.net>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+That would be done by standard possix permissions, not any freenx
+setting. Simply make sure the users in question does not have the
+execute bit set on any applications they are not supposed to run.
+(OK, it's perhaps not very simple, but it would still be the "propper"
+way to go).
+
+There is no way freenx could ever block a user runing any program it has
+possix permissions to execute. It would be possible (though not
+necessarily simple) to modify the freenx scripts so it will refuse the
+connection if given a blacklisted (or a non-whitelisted) executable to
+launch, but there is no way for freenx to make sure an approved
+application doesn't in turn launch a unapproved application, which would
+make such a feature useless for security purposes.
+
+Regards
+Jon "Jonno" Severinsson
+
+Maciej Sieczka skrev:
+> I asked this question on forum [1] but nobody replied. As I
+> cannot join the user ML (se my other message sent just a
+> moment ago) I'm sending my question here:
+> 
+> Is it possible to enable only selected programs to be run on
+> the server, for some users? I 'd like to achieve that for
+> eg. OO.org Base. I know I can set up the user's client so
+> that it automatically launches the selected program, but the
+> user still could modify his client's settings to gain access
+> to full desktop or run another program instead. I don't want
+> those users to be able to run other apps or the full
+> desktop, even if they edit their client settings.
+> 
+> Any hints more than welcome!
+> 
+> My server is Ubuntu Dapper/Gnome running freenx 0.7.1.
+> Client is !M 3.0.0-89.
+> 
+> [1]http://developer.berlios.de/forum/message.php?msg_id=41233
+> 
+> Maciek
+> _______________________________________________
+> Freenx-devel mailing list
+> Freenx-devel at lists.berlios.de
+> https://lists.berlios.de/mailman/listinfo/freenx-devel
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.7 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFHYD47OOpxqcksWu4RChZFAJ9+AWyWuHjcSVPjdlvJXB+rTOdPawCfSRnJ
+yg4RnPR1WYurWMRsIOm6U10=
+=nrhC
+-----END PGP SIGNATURE-----
+
+
+From berlios at kosowsky.org  Thu Dec 13 08:56:44 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Thu, 13 Dec 2007 02:56:44 -0500
+Subject: [Freenx-devel] JJK: All patches applied
+In-Reply-To: <18267.28608.41630.249142@consult.pretender>
+References: <20070811171932.108950@gmx.net>
+	<18243.11945.911192.562383@consult.pretender>	<20071120231815.3700@gmx.net>
+	<18267.28608.41630.249142@consult.pretender>
+Message-ID: <18272.58812.10859.500024@consult.pretender>
+
+Forwarding this to the list per Fabian's suggestion...
+Jeffrey J. Kosowsky wrote at about 23:32:00 -0500 on Saturday, December 8, 2007:
+ > Fabian,
+ > Version 0.7.1 has finally made into Fedora 8 and I am glad to see that
+ > the patches I suggested (along with many other improvements added by
+ > you) have been included.
+ > 
+ > Here are several more bug fixes/improvements that you might want to
+ > consider adding to nxnode. 
+ > 
+ > First, when a share is mounted, a new subdirectory is created
+ > ($mpoint). I believe that this directory should also be removed when
+ > the share is unmounted or else you end up with a lot of old stale
+ > mount points.
+ > 
+ > My suggested change (as indicated by my initials JJK) just adds one
+ > line to nod_umount_smb():
+ > 
+ > node_umount_smb()
+ > {
+ > 	[ -e "$USER_FAKE_HOME/.nx/C-$sess_id/scripts/mpoint" ] || return
+ > 	cat "$USER_FAKE_HOME/.nx/C-$sess_id/scripts/mpoint" | while read mpoint
+ > 	do
+ > 		$COMMAND_SMBUMOUNT "$mpoint" >/dev/null 2>/dev/null
+ > 		rmdir "$mpoint" >/dev/null 2>/dev/null #JJK remove mount point if empty
+ > 	done
+ > }
+ > 
+ > Note that the directory is only removed if empty.
+ > 
+ > Second, on my system the sharename returned by "getparam dir" begins
+ > with "%24" and not "$" (note that %24 is the ASCII encoding of $).
+ > So I changed the line:
+ >     dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
+ > To:
+ > 	dir=$(getparam dir | sed 's/\(%24\|\$\)(SHARES)/MyShares/g')
+ > 
+ > Also, note that using "|" as a separator in (gnu) sed is no longer
+ > recommended since it creates ambiguity with the 'or' operator
+ > 
+ > Third, I made several changes to the cupsd.conf file that is
+ > generated in nxnode.conf that you may (or may not) want to
+ > include. The changes are as follows:
+ > 
+ > 1. Placed all the log files in a subdirectory of
+ >    $USR_FAKE_HOME/.nx/C-$sess_id/cups 
+ >    I also added back in access_log
+ >    This adds clarity and is consistent with how all the log files in
+ >    cups are usually put together.
+ > 
+ >    AccessLog log/access_log
+ >    ErrorLog log/error_log
+ >    PageLog log/page_log
+ > 
+ > 2. I believe that you are using "Listen $NODE_CUPSD_SOCKET" for
+ >    security. However, when I do this, then I cannot use the CUPS web
+ >    interface to manage the printers since there is no port to point my
+ >    web browser at (correct me if there is a way). Also, it may be nice
+ >    to allow other users to access the remote printers at least at some
+ >    non-privileged level.
+ > 
+ >    So, I also open up listening on $NODE_CUPSD_PORT and then use a
+ >    more buttoned-down version of permissions to restore some
+ >    security. Basically, I copied the security permissions that the
+ >    regular default cupsd.conf setup uses on my Fedora system. So, in the
+ >    end I am trading off perhaps a little security for more convenient
+ >    access to and management of the printers.
+ > 
+ >    Specifically, I make the following additional changes to the
+ >    generated cupsd.conf file [Note the first and last stanza of the
+ >    restrictions are unchanged except for added comments]
+ > 
+ > SystemGroup sys root $USER
+ > Listen localhost: $NODE_CUPSD_PORT
+ > 
+ > #JJK:  Restrict access to the server...
+ > <Location />
+ > Order Deny,Allow
+ > Deny From All
+ > Allow from 127.0.0.1
+ > </Location>
+ > 
+ > #JJK: Restrict access to the admin pages...
+ > <Location /admin>
+ >   Encryption Required
+ >   Order allow,deny
+ >   Allow localhost
+ > </Location>
+ > 
+ > #JJK: Restrict access to configuration files...
+ > <Location /admin/conf>
+ >   AuthType Basic
+ >   Require user @SYSTEM
+ >   Order allow,deny
+ >   Allow localhost
+ > </Location>
+ > 
+ > #JJK: Since also allowing access via $NODE_CUPSD_PORT, need to add protection
+ > <Policy default>
+ >   #JJK: Job-related operations must be done by the owner or an adminstrator...
+ >   <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job CUPS-Move-Job>
+ >     Require user @OWNER @SYSTEM
+ >     Order deny,allow
+ >   </Limit>
+ > 
+ >   #JJK:All administration operations require an adminstrator to authenticate...
+ >   <Limit Pause-Printer Resume-Printer Set-Printer-Attributes Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After CUPS-Add-Class CUPS-Delete-Class CUPS-Accept-Jobs CUPS-Reject-Jobs>
+ >     AuthType Basic
+ >     Require user @SYSTEM
+ >     Order deny,allow
+ >   </Limit>
+ > 
+ >   #JJK: Except need to allow these for nxnode to work
+ >   <Limit CUPS-Add-Printer CUPS-Delete-Printer CUPS-Set-Default>
+ >     Order deny,allow
+ >   </Limit>
+ > 
+ >   # Only the owner or an administrator can cancel or authenticate a job...
+ >   <Limit Cancel-Job CUPS-Authenticate-Job>
+ >     Require user @OWNER @SYSTEM
+ >     Order deny,allow
+ >   </Limit>
+ > 
+ > # JJK: Allow everything else...
+ >   <Limit All>
+ >     AuthType None
+ >     Order deny,allow
+ >   </Limit>
+ > </Policy>
+ > 
+ > 	3. I like to also allow 'guest' so you can do things like print
+ > 	   testpages from the CUPS web interface. Note this is required
+ > 	   even for the original user to print test pages from the CUPS
+ > 	   web interface
+ > 	   
+ > 	   To do this, change:
+ > 		  PUBLIC="-u allow:$USER"
+ > 	   To:
+ > 		  PUBLIC="-u allow:$USER,guest"
+ > 
+ > Fabian Franz wrote at about 00:18:15 +0100 on Wednesday, November 21, 2007:
+ >  > > Fabian,
+ >  > 
+ >  > Hi,
+ >  > 
+ >  > > I continue to play with freenx and fix bugs as they occur and as I
+ >  > > update my own Fedora system. I will send you my updated patches when
+ >  > > they are cleaned up if you are interested.
+ >  > 
+ >  > Sure. That is perfect.
+ >  > 
+ >  > > One bug (at least on Fedora systems) is that the directive "PidFile"
+ >  > > in cupsd.conf doesn't seem to be recognized. The result is that the
+ >  > > daemon code that you use to launch cupsd doesn't record the pid and
+ >  > > then it can't later be killed. I'm not sure why "PidFile" is not
+ >  > > recognized but I tested it outside of NX by launching cupsd manually
+ >  > > and indeed it doesn't work (I am using Cups 1.3.3).
+ >  > 
+ >  > Yes PidFile is debian specific, but I didn't knew that.
+ >  > 
+ >  > Your fix is fine and I will commit a similar one with -f to SVN.
+ >  > 
+ >  > > To get around this, I use the following patch:
+ >  > > #JJK:   $COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf"
+ >  > > &>/dev/null </dev/null
+ >  > >     $COMMAND_CUPSD -F -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf"
+ >  > > &>/dev/null </dev/null & NODE_CUPSD_PID=$! echo $NODE_CUPSD_PID
+ >  > > >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ >  > >     NODE_CUPSD_PID=$!
+ >  > >     echo $NODE_CUPSD_PID >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ >  > > 
+ >  > > A second problem I found is more challenging (to me).
+ >  > 
+ >  > Not only to you.
+ >  > 
+ >  > > Based on our earlier discussion, I am using the directive
+ >  > > 	echo "NX> 709 File-sharing port: 445"
+ >  > > to enable me to use mount.cifs/umount.cifs since smbmount is no longer
+ >  > > supported on my system.
+ >  > > This then sets up the ssh port forwarding: <$display+3000> --> 445
+ >  > > So, far this makes file sharing work.
+ >  > 
+ >  > You can use FreENx 0.7.1 that has this directive and even has it configurable.
+ >  > 
+ >  > > However, I now can't get print sharing working. Since the smb URL for
+ >  > > printing in 'nxnode' uses the same port while smb URL printing seems
+ >  > > to need to be forwarded to the old port 139 standard to work.
+ >  > 
+ >  > SMB printing won't need to be forwarded to port 139, but in SAMBA the port 445 is hardcoided to be used to switch printing to CIFS.
+ >  > 
+ >  > So there are two possbilities:
+ >  > 
+ >  > (1) - Patch samba to do a != 139 instead of ==445.
+ >  > 
+ >  > (or even better apply a different idea of the patch that NoMachine did to upstream. I had  been already in negotiations with Samba, but I forgot it again ...)
+ >  > 
+ >  > (2) - Or use my old work in http://svn.berlios.de/svnroot/repos/freenx/nx-utils/nxredir/. to forward 445 to some port via LD_PRELOAD mechanism and let smbprint use it.
+ >  > 
+ >  > (I had also written some other mail in the last month regarding this issue)
+ >  > 
+ >  > At the moment I will go with (2) for the 0.7.2 release and with (1) for the long term.
+ >  > 
+ >  > cu
+ >  > 
+ >  > Fabian
+
+
+From berlios at kosowsky.org  Thu Dec 13 08:57:47 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Thu, 13 Dec 2007 02:57:47 -0500
+Subject: [Freenx-devel] Two critical path/sourcing errors in
+ printer/file sharing in freenx 0.7.1
+In-Reply-To: <18268.50819.26469.168905@consult.pretender>
+References: <20070811171932.108950@gmx.net>
+	<18243.11945.911192.562383@consult.pretender>	<20071120231815.3700@gmx.net>
+	<18268.50819.26469.168905@consult.pretender>
+Message-ID: <18272.58875.886539.480054@consult.pretender>
+
+Forwarding this email to the list per Fabian's suggestion...
+Jeffrey J. Kosowsky wrote at about 23:54:27 -0500 on Sunday, December 9, 2007:
+ > Fabian,
+ > In updating to 0.7.1, I found the following two bugs related to the
+ > fact that certain shell variables are not propagated properly:
+ > 
+ > 1. In nxnode, you added logic to the subroutine startsession" to set
+ >    the values for COMMAND_SMBMOUNT and COMMAND_SMBUMOUNT.
+ >    However, these shell variables are actually used in the subroutines
+ >    cmd_node_smbmount and node_umount_smb.
+ >    Since these are independent routines called from another
+ >    subroutine, the values set in startsession are not present when
+ >    they are needed in the other routines.
+ > 
+ >    I got around this by adding a kludge to the head of nxnode to
+ >    basically repeat the logic of startsession.
+ > 
+ >    Alternatively, one could store the value in a temp file or as part
+ >    of the string in the 'options' file.
+ > 
+ > 2. The variable ENABLE_FOOMATIC is exported in nxdialog and then
+ >    referenced in nxprint (which is called from nxdialog). However, the
+ >    variable ENABLE_FOOMATIC is actually set in nxloadconfig but is not
+ >    sourced in nxdialog. Hence, it shows up as the null string so that
+ >    the foomatic if clause in nxprint is never executed.
+ > 
+ >    Presumably, this also would effect the variable COMMAND_FOOMATIC
+ >    though in nxprint the statement
+ >    [ -z $COMMAND_FOOMATIC" ] && COMMAND_FOOMATIC="foomatic-ppdfile"
+ >    masks the problem
+ > 
+ > Hope this is helpful and looking forward to seeing 0.7.2 and beyond!
+ > 
+ > Regards,
+ > Jeff
+
+
+From berlios at kosowsky.org  Thu Dec 13 08:59:17 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Thu, 13 Dec 2007 02:59:17 -0500
+Subject: [Freenx-devel] JJK: All patches applied
+In-Reply-To: <20071120231815.3700@gmx.net>
+References: <20070811171932.108950@gmx.net>
+	<18243.11945.911192.562383@consult.pretender>	<20071120231815.3700@gmx.net>
+Message-ID: <18272.58965.687641.496185@consult.pretender>
+
+Forwarding this email to the list per Fabian's suggestion...
+Fabian Franz wrote at about 00:18:15 +0100 on Wednesday, November 21, 2007:
+ > > Fabian,
+ > 
+ > Hi,
+ > 
+ > > I continue to play with freenx and fix bugs as they occur and as I
+ > > update my own Fedora system. I will send you my updated patches when
+ > > they are cleaned up if you are interested.
+ > 
+ > Sure. That is perfect.
+ > 
+ > > One bug (at least on Fedora systems) is that the directive "PidFile"
+ > > in cupsd.conf doesn't seem to be recognized. The result is that the
+ > > daemon code that you use to launch cupsd doesn't record the pid and
+ > > then it can't later be killed. I'm not sure why "PidFile" is not
+ > > recognized but I tested it outside of NX by launching cupsd manually
+ > > and indeed it doesn't work (I am using Cups 1.3.3).
+ > 
+ > Yes PidFile is debian specific, but I didn't knew that.
+ > 
+ > Your fix is fine and I will commit a similar one with -f to SVN.
+ > 
+ > > To get around this, I use the following patch:
+ > > #JJK:   $COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf"
+ > > &>/dev/null </dev/null
+ > >     $COMMAND_CUPSD -F -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf"
+ > > &>/dev/null </dev/null & NODE_CUPSD_PID=$! echo $NODE_CUPSD_PID
+ > > >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ > >     NODE_CUPSD_PID=$!
+ > >     echo $NODE_CUPSD_PID >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ > > 
+ > > A second problem I found is more challenging (to me).
+ > 
+ > Not only to you.
+ > 
+ > > Based on our earlier discussion, I am using the directive
+ > > 	echo "NX> 709 File-sharing port: 445"
+ > > to enable me to use mount.cifs/umount.cifs since smbmount is no longer
+ > > supported on my system.
+ > > This then sets up the ssh port forwarding: <$display+3000> --> 445
+ > > So, far this makes file sharing work.
+ > 
+ > You can use FreENx 0.7.1 that has this directive and even has it configurable.
+ > 
+ > > However, I now can't get print sharing working. Since the smb URL for
+ > > printing in 'nxnode' uses the same port while smb URL printing seems
+ > > to need to be forwarded to the old port 139 standard to work.
+ > 
+ > SMB printing won't need to be forwarded to port 139, but in SAMBA the port 445 is hardcoided to be used to switch printing to CIFS.
+ > 
+ > So there are two possbilities:
+ > 
+ > (1) - Patch samba to do a != 139 instead of ==445.
+ > 
+ > (or even better apply a different idea of the patch that NoMachine did to upstream. I had  been already in negotiations with Samba, but I forgot it again ...)
+ > 
+ > (2) - Or use my old work in http://svn.berlios.de/svnroot/repos/freenx/nx-utils/nxredir/. to forward 445 to some port via LD_PRELOAD mechanism and let smbprint use it.
+ > 
+ > (I had also written some other mail in the last month regarding this issue)
+ > 
+ > At the moment I will go with (2) for the 0.7.2 release and with (1) for the long term.
+ > 
+ > cu
+ > 
+ > Fabian
+ > 
+
+
+From berlios at kosowsky.org  Thu Dec 13 09:00:10 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Thu, 13 Dec 2007 03:00:10 -0500
+Subject: [Freenx-devel] Question regarding usage of "Download (CUPS)"
+	option
+In-Reply-To: <18268.51357.313471.866848@consult.pretender>
+References: <20070811171932.108950@gmx.net>
+	<18243.11945.911192.562383@consult.pretender>	<20071120231815.3700@gmx.net>
+	<18268.51357.313471.866848@consult.pretender>
+Message-ID: <18272.59018.821442.266598@consult.pretender>
+
+Forwarding this email to the list per Fabian's suggestion...
+Jeffrey J. Kosowsky wrote at about 00:03:25 -0500 on Monday, December 10, 2007:
+ > Fabian,
+ > Can you help me understand when one would choose to use the "Download
+ > (CUPS)" option?
+ > 
+ > When I try to use it from a Windows NX client, I get the error
+ > message:
+ > 	Download failed. Log is: ....
+ > 
+ > In looking at the code in nxnode, I see that you are scraping the web
+ > page http://127.0.0.1:$port/ppd/${printer}_nxdl.ppd.
+ > Is this something that only works when a real CUPS server is running
+ > on the client (along with something like apache) so that this
+ > therefore wouldn't work in a typical Windows situation?
+ > 
+ > If so, should logic be introduced into the scripts to only give this
+ > option in the dialog box if you are on a non-Windows machine or
+ > something to that effect?
+ > 
+ > 
+
+
+From berlios at kosowsky.org  Thu Dec 13 09:01:04 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Thu, 13 Dec 2007 03:01:04 -0500
+Subject: [Freenx-devel] Some potential messiness in nxprint
+In-Reply-To: <18268.52253.8240.740385@consult.pretender>
+References: <20070811171932.108950@gmx.net>
+	<18243.11945.911192.562383@consult.pretender>	<20071120231815.3700@gmx.net>
+	<18268.52253.8240.740385@consult.pretender>
+Message-ID: <18272.59072.74590.326822@consult.pretender>
+
+Forwarding this email to the list per Fabian's suggestion...
+Jeffrey J. Kosowsky wrote at about 00:18:21 -0500 on Monday, December 10, 2007:
+ > Fabian,
+ > When I originally wrote the caching logic to speed up listing of the
+ > foomatic ppdfiles, I placed the caching logic in nxclient (what would
+ > now be nxdialog).
+ > 
+ > This allowed one to still run "nxprint --drivers" as a standalone
+ > routine. Now with the cache logic buried there, you end up writing to
+ > the file ".all" in the local directory if you just call it as a
+ > standalone since the variable UTILITY_DRIVERS_CACHE is not set. So,
+ > I'm thinking that it might be better to put the caching logic back in
+ > the utility printing functions in nxdialog.
+ > 
+ > Alternatively, would it be better to take all the printing utilities
+ > out of nxdialog and put them in nxprint and make nxdialog more of a
+ > pure dialog generating script.
+ > 
+ > Also, is the option "nxprint --printers" ever used now?
+ > All it really does is call "lpstat -p". And that itself may be wrong
+ > since you probably really want to call "lpstat -p -h localhost:$port"
+ > since you want to be accessing the local cups process.
+ > 
+ > The reason that I am writing this is that I am finding that with each
+ > new release of freenx, the code gets a bit more complicated and
+ > difficult to follow. Of course, the functionality and flexibility is
+ > much improved and some areas are tightened up. But at the same time,
+ > naturally, some of it gets a bit more difficult to follow -- this is
+ > NOT A COMPLAINT -- just an observation about whether it makes sense at
+ > some point to take a step back and reorganize the code. For example,
+ > it is not always clear (to me) which routines call which other
+ > routines and which variables are passed or sourced. The net result is
+ > it took me half a day to find the two simple bugs that I reported in
+ > the previous email. 
+ > 
+ > I do of course appreciate all the hard work you have put into building
+ > this code and I want to be as helpful as I can with my limited
+ > abilities and understanding.
+ > 
+ > Thanks for all the help!
+ > Jeff
+
+
+From berlios at kosowsky.org  Thu Dec 13 09:01:51 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Thu, 13 Dec 2007 03:01:51 -0500
+Subject: [Freenx-devel] Suggestion to test ports for conflicts
+In-Reply-To: <18268.54733.571595.964362@consult.pretender>
+References: <20070811171932.108950@gmx.net>
+	<18243.11945.911192.562383@consult.pretender>	<20071120231815.3700@gmx.net>
+	<18268.54733.571595.964362@consult.pretender>
+Message-ID: <18272.59119.757549.258170@consult.pretender>
+
+Forwarding this email to the list per Fabian's suggestion...
+Jeffrey J. Kosowsky wrote at about 00:59:41 -0500 on Monday, December 10, 2007:
+ > When I originally started playing with multimedia on nx, I was stymied
+ > because the nx client kept failing to connect until I realize that
+ > there was a port conflict between port 8000 (DISPLAY_BASE+7000) which
+ > nx was trying to use for sound and some existing nasd process on my
+ > server. As a newbie, it took me quite a while to diagnose and fix the
+ > problem.
+ > 
+ > This led me to wonder whether it would make sense for the nxserver
+ > side to look for conflicts before selecting the base.
+ > For example, it would use a program like 'netstat' to identify ports
+ > that are already in use. The logic would be something like this:
+ > 	 for (base=DISPLAY_BASE; ; base++) {
+ > 		 if base or base+5000 or base+7000 or base+9000 are already
+ > 		 bound to a port, then break;
+ > 	 }
+ > 
+ > Given the need for at least 4 very specific ports, it would seem that
+ > the chance of collision is not insignificant and that logic like the
+ > above would be very useful.
+ > 
+ > 
+ > Fabian Franz wrote at about 00:18:15 +0100 on Wednesday, November 21, 2007:
+ >  > > Fabian,
+ >  > 
+ >  > Hi,
+ >  > 
+ >  > > I continue to play with freenx and fix bugs as they occur and as I
+ >  > > update my own Fedora system. I will send you my updated patches when
+ >  > > they are cleaned up if you are interested.
+ >  > 
+ >  > Sure. That is perfect.
+ >  > 
+ >  > > One bug (at least on Fedora systems) is that the directive "PidFile"
+ >  > > in cupsd.conf doesn't seem to be recognized. The result is that the
+ >  > > daemon code that you use to launch cupsd doesn't record the pid and
+ >  > > then it can't later be killed. I'm not sure why "PidFile" is not
+ >  > > recognized but I tested it outside of NX by launching cupsd manually
+ >  > > and indeed it doesn't work (I am using Cups 1.3.3).
+ >  > 
+ >  > Yes PidFile is debian specific, but I didn't knew that.
+ >  > 
+ >  > Your fix is fine and I will commit a similar one with -f to SVN.
+ >  > 
+ >  > > To get around this, I use the following patch:
+ >  > > #JJK:   $COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf"
+ >  > > &>/dev/null </dev/null
+ >  > >     $COMMAND_CUPSD -F -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf"
+ >  > > &>/dev/null </dev/null & NODE_CUPSD_PID=$! echo $NODE_CUPSD_PID
+ >  > > >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ >  > >     NODE_CUPSD_PID=$!
+ >  > >     echo $NODE_CUPSD_PID >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ >  > > 
+ >  > > A second problem I found is more challenging (to me).
+ >  > 
+ >  > Not only to you.
+ >  > 
+ >  > > Based on our earlier discussion, I am using the directive
+ >  > > 	echo "NX> 709 File-sharing port: 445"
+ >  > > to enable me to use mount.cifs/umount.cifs since smbmount is no longer
+ >  > > supported on my system.
+ >  > > This then sets up the ssh port forwarding: <$display+3000> --> 445
+ >  > > So, far this makes file sharing work.
+ >  > 
+ >  > You can use FreENx 0.7.1 that has this directive and even has it configurable.
+ >  > 
+ >  > > However, I now can't get print sharing working. Since the smb URL for
+ >  > > printing in 'nxnode' uses the same port while smb URL printing seems
+ >  > > to need to be forwarded to the old port 139 standard to work.
+ >  > 
+ >  > SMB printing won't need to be forwarded to port 139, but in SAMBA the port 445 is hardcoided to be used to switch printing to CIFS.
+ >  > 
+ >  > So there are two possbilities:
+ >  > 
+ >  > (1) - Patch samba to do a != 139 instead of ==445.
+ >  > 
+ >  > (or even better apply a different idea of the patch that NoMachine did to upstream. I had  been already in negotiations with Samba, but I forgot it again ...)
+ >  > 
+ >  > (2) - Or use my old work in http://svn.berlios.de/svnroot/repos/freenx/nx-utils/nxredir/. to forward 445 to some port via LD_PRELOAD mechanism and let smbprint use it.
+ >  > 
+ >  > (I had also written some other mail in the last month regarding this issue)
+ >  > 
+ >  > At the moment I will go with (2) for the 0.7.2 release and with (1) for the long term.
+ >  > 
+ >  > cu
+ >  > 
+ >  > Fabian
+ >  > 
+
+
+From berlios at kosowsky.org  Thu Dec 13 09:02:26 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Thu, 13 Dec 2007 03:02:26 -0500
+Subject: [Freenx-devel] Font error messages.
+In-Reply-To: <18268.55150.906304.365202@consult.pretender>
+References: <20070811171932.108950@gmx.net>
+	<18243.11945.911192.562383@consult.pretender>	<20071120231815.3700@gmx.net>
+	<18268.55150.906304.365202@consult.pretender>
+Message-ID: <18272.59154.972428.969728@consult.pretender>
+
+Forwarding this email to the list per Fabian's suggestion...
+Jeffrey J. Kosowsky wrote at about 01:06:38 -0500 on Monday, December 10, 2007:
+ > Fabian,
+ > Sorry for the multiple emails, but I have been working on nx all day
+ > and wanted to share with you all my findings for better or worse.
+ > 
+ > In reviewing my session log, I noticed that it is showing a number of
+ > font errors (see below).  I think the first group of errors ("Could
+ > not init font path element") is due to a path issue since my x11 fonts
+ > are stored in /usr/share/X11/fonts while freenx/nx seems to be looking
+ > in /usr/X11R6/lib/X11/fonts and /usr/share/fonts.  So, I am wondering
+ > whether there is a way to configure the font paths correctly (assuming
+ > this is a valid issue).
+ > 
+ > For the second group of errors (WARNING! Font not found), some of the
+ > fonts exist (as proved by running xlsfonts):
+ > 	nil2
+ > 	-Misc-Fixed-Medium-R-Normal-ja-13-120-75-75-C-120-ISO10646-1
+ > 	-Misc-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1'.
+ > 
+ > while one of the fonts doesn't show up under xlsfonts:
+ > 	-misc-fixed-bold-r-normal--12-120-75-75-c-120-iso10646-1'.
+ > 
+ > So, again not really sure what is going on here and what if anything
+ > to do about it. Also, some of the font warnings seem to be repeated.
+ > 
+ > (Note: On the windows client side, I have installed both the 75dpi and 100dpi
+ > packages.)
+ > ---------------------------------------------------------------
+ > Here are the error messages:
+ > 
+ > Could not init font path element /usr/X11R6/lib/X11/fonts/misc/, removing from list!
+ > Could not init font path element /usr/X11R6/lib/X11/fonts/Speedo/, removing from list!
+ > Could not init font path element /usr/X11R6/lib/X11/fonts/Type1/, removing from list!
+ > Could not init font path element /usr/X11R6/lib/X11/fonts/75dpi/, removing from list!
+ > Could not init font path element /usr/X11R6/lib/X11/fonts/100dpi/, removing from list!
+ > Could not init font path element /usr/X11R6/lib/X11/fonts/TTF/, removing from list!
+ > Could not init font path element /usr/share/X11/fonts/Speedo/, removing from list!
+ > Could not init font path element /usr/share/fonts/misc/, removing from list!
+ > Could not init font path element /usr/share/fonts/Speedo/, removing from list!
+ > Could not init font path element /usr/share/fonts/Type1/, removing from list!
+ > Could not init font path element /usr/share/fonts/75dpi/, removing from list!
+ > Could not init font path element /usr/share/fonts/100dpi/, removing from list!
+ > Could not init font path element /usr/share/fonts/TTF/, removing from list!
+ > Session: Session started at 'Sun Dec  9 19:53:19 2007'.
+ > nxagentLoadQueryFont: WARNING! Font not found 'nil2'.
+ > nxagentLoadQueryFont: WARNING! Font not found '-Misc-Fixed-Medium-R-Normal-ja-13-120-75-75-C-120-ISO10646-1'.
+ > nxagentLoadQueryFont: WARNING! Font not found '-misc-fixed-bold-r-normal--12-120-75-75-c-120-iso10646-1'.
+ > nxagentLoadQueryFont: WARNING! Font not found '-Misc-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1'.
+ > nxagentLoadQueryFont: WARNING! Font not found '-Misc-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1'.
+ > nxagentLoadQueryFont: WARNING! Font not found 'nil2'.
+ > nxagentLoadQueryFont: WARNING! Font not found '-Misc-Fixed-Medium-R-Normal-ja-13-120-75-75-C-120-ISO10646-1'.
+ > nxagentLoadQueryFont: WARNING! Font not found '-misc-fixed-bold-r-normal--12-120-75-75-c-120-iso10646-1'.
+ > nxagentLoadQueryFont: WARNING! Font not found '-Misc-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1'.
+ > nxagentLoadQueryFont: WARNING! Font not found -Misc-Fixed-Medium-R-SemiCondensed--13-120-75-75-C-60-ISO10646-1'.
+
+
+From tutey at o2.pl  Thu Dec 13 18:49:05 2007
+From: tutey at o2.pl (Maciej Sieczka)
+Date: Thu, 13 Dec 2007 18:49:05 +0100
+Subject: [Freenx-devel] how to allow only selected programs via NX?
+In-Reply-To: <47603E3B.3060708@severinsson.net>
+References: <475F04FF.90903@o2.pl> <47603E3B.3060708@severinsson.net>
+Message-ID: <47617091.9020100@o2.pl>
+
+Hi Jon
+
+Thanks for your reply. Please read below.
+
+Jon Severinsson wrote:
+> That would be done by standard possix permissions, not any freenx
+> setting. Simply make sure the users in question does not have the
+> execute bit set on any applications they are not supposed to run.
+> (OK, it's perhaps not very simple, but it would still be the "propper"
+> way to go).
+
+Not really simple I guess.
+
+I have OO.org Base on the server, which remote NX users use
+to edit data in a PostgreSQL database on the server. So I'd
+propably need to find all executables and libraries that
+these two need; and the neccessary system core stuff, too.
+Then manage rights on all those files to make sure the NX
+users can't access them. Propably doable, but I would not
+know where to start.
+
+> There is no way freenx could ever block a user runing any program it has
+> possix permissions to execute. It would be possible (though not
+> necessarily simple) to modify the freenx scripts so it will refuse the
+> connection if given a blacklisted (or a non-whitelisted) executable to
+> launch,
+
+That's exactly something I was dreaming of.
+
+> but there is no way for freenx to make sure an approved
+> application doesn't in turn launch a unapproved application, which would
+> make such a feature useless for security purposes.
+
+This is not of a concern for NX though. NX would do it's job
+just fine, if it behaved like you describe it above - let
+the user run only the whitelisted executable, and no other.
+Whether the particular, whitelisted executable poses *it's
+own* security risk, is a separate issue IMO.
+
+Maciek
+
+
+From tutey at o2.pl  Sun Dec 16 21:51:27 2007
+From: tutey at o2.pl (Maciej Sieczka)
+Date: Sun, 16 Dec 2007 21:51:27 +0100
+Subject: [Freenx-devel] how to allow only selected programs via NX?
+In-Reply-To: <47617091.9020100@o2.pl>
+References: <475F04FF.90903@o2.pl> <47603E3B.3060708@severinsson.net>
+	<47617091.9020100@o2.pl>
+Message-ID: <47658FCF.20103@o2.pl>
+
+A thought and a questions regarding my last notes. Please
+read below.
+
+Maciej Sieczka wrote:
+
+>> There is no way freenx could ever block a user runing any program it has
+>> possix permissions to execute. It would be possible (though not
+>> necessarily simple) to modify the freenx scripts so it will refuse the
+>> connection if given a blacklisted (or a non-whitelisted) executable to
+>> launch,
+
+> That's exactly something I was dreaming of.
+
+Is there a shell script on the freenx server that each new
+session runs when it begins? If there was, I could myself
+hack it so that it would cancel the connection if the client
+was trying to start a program that I don't want it to.
+That'd be simple and effective, for me.
+
+Maciek
+
+
+From jon at severinsson.net  Sun Dec 30 09:40:27 2007
+From: jon at severinsson.net (Jon Severinsson)
+Date: Sun, 30 Dec 2007 09:40:27 +0100
+Subject: [Freenx-devel] how to allow only selected programs via NX?
+In-Reply-To: <47658FCF.20103@o2.pl>
+References: <475F04FF.90903@o2.pl> <47603E3B.3060708@severinsson.net>
+	<47617091.9020100@o2.pl> <47658FCF.20103@o2.pl>
+Message-ID: <4777597B.2070106@severinsson.net>
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Well, there is the $NODE_AUTOSTART script that is run at login after the
+ requested application is started (or rather, the $NODE_AUTOSTART is
+asynchronously started by nxnode after the function that starts the
+application is asynchronously started by nxnode).
+
+I assume you could try to kill non-approved applications using that
+script. The application name isn't given to the script, but it's pid can
+be found in "$USER_FAKE_HOME/.nx/C-$NXSESSIONID/pids/applications", and
+then you can use "ps --no-headers -o command -p $PID" to get the command
+name ($NXSESSIONID is exported to the script, $USER_FAKE_HOME isn't, but
+as it's you setting $USER_FAKE_HOME yourself in node.conf that's no
+problem).
+
+But please note that due to the asyncroneous nature of the calls by
+nxnode the pid-file has not necessarily been created when control is
+given to $NODE_AUTOSTART, so you might have to wait for it first, but if
+the application is real fast, it might complete it's run prior to you
+getting a chance to kill it, and if so the pid-file might have had time
+to be deleted already (and worse, the damage from running an
+unauthorized application is already done). Also note that if you set
+DEFAULT_X_WM to anything and KILL_DEFAULT_X_WM to 0, the client will
+still get the DEFAULT_X_WM (though not the application requested), as
+you can't kill it from within $NODE_AUTOSTART, as you have no way of
+knowing it's pid.
+
+I think that in your place I would have edited nxnode to add another
+script that is *synchronously* run *prior* to launching the application,
+and use it's return value to determine whether to launch the application
+in the first place.
+
+Regards
+Jonno
+
+Maciej Sieczka skrev:
+> A thought and a questions regarding my last notes. Please
+> read below.
+> 
+> Maciej Sieczka wrote:
+> 
+>>> There is no way freenx could ever block a user runing any program it has
+>>> possix permissions to execute. It would be possible (though not
+>>> necessarily simple) to modify the freenx scripts so it will refuse the
+>>> connection if given a blacklisted (or a non-whitelisted) executable to
+>>> launch,
+> 
+>> That's exactly something I was dreaming of.
+> 
+> Is there a shell script on the freenx server that each new
+> session runs when it begins? If there was, I could myself
+> hack it so that it would cancel the connection if the client
+> was trying to start a program that I don't want it to.
+> That'd be simple and effective, for me.
+> 
+> Maciek
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.7 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFHd1l7OOpxqcksWu4RCsJKAJ9DDNZsJWVKLbBr2kGtFGXJ4hJAcACfejnT
+bzDr8yw+FkNcgPWDw3WXNjI=
+=GMWR
+-----END PGP SIGNATURE-----
+
+
+From berlios at kosowsky.org  Sun Dec 30 23:13:37 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Sun, 30 Dec 2007 17:13:37 -0500
+Subject: [Freenx-devel] Cumulative patches against 0.7.1
+Message-ID: <18296.6161.435000.338715@gargle.gargle.HOWL>
+
+As noted in several of my earlier messages, for various reasons
+printer sharing and file sharing won't work properly out of the box,
+in particular on Fedora though many of the bugs are probably common to
+all distros.  In addition, multimedia breaks on Fedora due to port
+conflicts with nasd. Also, even after basic bug fixes, it still is not
+possible to get file and printer sharing working simultaneously
+without applying various kluges.
+
+So, here are my cumulative patches that gets all the above to work
+nicely in Fedora and should also be of help to other distros.
+
+I have tried to document the patches with my initials (JJK) and
+comments to help explain what & why I am doing.
+
+Enjoy,
+Jeff
+
+----------------------------------------------------------------------
+
+diff -ruw nx/nxloadconfig nx.new/nxloadconfig
+--- nx/nxloadconfig	2007-12-30 16:34:04.000000000 -0500
++++ nx.new/nxloadconfig	2007-12-30 16:33:58.000000000 -0500
+@@ -101,11 +101,28 @@
+ 
+ # Restriction directives
+ 
+-DISPLAY_BASE=1000
++#JJK: DISPLAY_BASE=1000
++#JJK: Change DISPLAY_BASE to 2000 to avoid conflict of DISPLAY_BASE+7000 with nasd
++DISPLAY_BASE=2000
+ SESSION_LIMIT=200
+ SESSION_USER_LIMIT="" #Calculated
+ DISPLAY_LIMIT=200
+ 
++#JJK: Added the following to allow printing when using cifs mount
++#JJK: Note the smb print port (#139) must then be tunnelled manually
++#JJK: from <DISPLAY+3000+SMBPORT_OFFSET> on the server to port 139 on the host
++#JJK: by running on the client: 
++#JJK:   ssh ... -R <DISPLAY+3000+SMBPORT_OFFSET>:<client name>:139
++#JJK: If SAMBA_MOUNT_SHARE_PROTOCOL="smbfs" (technically, if it doesn't equal
++#JJK  'cifs' or in most cases 'both') then the ssh tunnel is automatically
++#JJK: set up from port <DISPLAY+3000> on the server to port 139 
++#JJK: on the remote client.
++#JJK: Note in *all* cases, the cups printer on the client is accessed from 
++#JJK: the server via the command line, using the following -h flag:
++#JJK:   -h localhost:<DISPLAY+9000> [-P <printer name>]
++#JJK: or via the CUPS web browser using:
++#JJK:   http://localhost:<DISPLAY+9000>
++SMBPORT_OFFSET=8000
+ ENABLE_PERSISTENT_SESSION="all"
+ DISABLE_PERSISTENT_SESSION=""
+ 
+@@ -154,7 +171,11 @@
+ ENABLE_CUPS_SEAMLESS="0"
+ CUPS_SEAMLESS_DELAY="10"
+ ENABLE_FOOMATIC="1"
+-COMMAND_FOOMATIC="/usr/lib/cups/driver/foomatic-ppdfile"
++#JJK: COMMAND_FOOMATIC="/usr/lib/cups/driver/foomatic-ppdfile"
++COMMAND_FOOMATIC="/usr/bin/foomatic-ppdfile"
++
++#JJK: added the following path referenced in nxprint
++PPD_DIR="/usr/share/cups/model" #JJK: Note /usr/share/ppd on some systems
+ 
+ CUPS_BACKEND="/usr/lib/cups/backend"
+ CUPS_IPP_BACKEND="$CUPS_BACKEND/nxipp"
+@@ -171,7 +192,8 @@
+ DEFAULT_X_WM=""
+ KILL_DEFAULT_X_WM="1"
+ USER_X_STARTUP_SCRIPT=.Xclients
+-DEFAULT_X_SESSION=/etc/X11/xdm/Xsession
++#JJK: DEFAULT_X_SESSION=/etc/X11/xdm/Xsession
++DEFAULT_X_SESSION=/etc/X11/xinit/Xsession
+ COMMAND_START_KDE=startkde
+ COMMAND_START_GNOME=gnome-session
+ COMMAND_START_CDE=cdwm
+diff -ruw nx/nxnode nx.new/nxnode
+--- nx/nxnode	2007-12-30 16:34:04.000000000 -0500
++++ nx.new/nxnode	2007-12-30 16:33:58.000000000 -0500
+@@ -20,6 +20,20 @@
+ # Read the config file
+ . $(PATH=$(cd $(dirname $0) && pwd):$PATH which nxloadconfig) --userconf
+ 
++#JJK: Added	following 'if' stanza as a kluge since the following variables
++#JJK: need to be set in cmd_node_smbmount node_umount_smb 
++#JJK: but they are currently set only in startsession which is called 
++#JJK: separately from nxserver via ssh so environment variables 
++#JJK: aren't preserved.
++if [[ "$SAMBA_MOUNT_SHARE_PROTOCOL" = "cifs" || \
++	 ( "$SAMBA_MOUNT_SHARE_PROTOCOL" = "both" && \
++	  `which "$COMMAND_SMBMOUNT_CIFS"` && `which "$COMMAND_SMBUMOUNT_CIFS"` ) \
++			]] > /dev/null 2>&1; then
++	COMMAND_SMBMOUNT=$COMMAND_SMBMOUNT_CIFS
++	COMMAND_SMBUMOUNT=$COMMAND_SMBUMOUNT_CIFS
++	SAMBA_MOUNT_SHARE_PROTOCOL="cifs"
++fi
++
+ #
+ # -----------------------------------------------------------------------------
+ # Startup of nxnode
+@@ -593,11 +607,27 @@
+ 	touch "$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ 	
+ 	mkdir -p "$USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/tmp" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/certs" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/ppd" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cache"
++	mkdir -p "$USER_FAKE_HOME/.nx/C-$sess_id/cups/log" #JJK cups log file home
++
++#JJK: Modifications to cupsd.conf
++#JJK:   - Added SystemGroup line in order to add $USER to SystemGroup
++#JJK:   - Moved all the log files to log/<log>
++#JJK:   - Set AccessLog to: log/access_log (was /dev/null)
++#JJK:   - Added listening on $NODE_CUPSD_PORT
++#JJK:	         Listen localhost: $NODE_CUPSD_PORT
++#JJK:   - Removed following line because directive is specific to Debian
++#JJK:       PidFile $USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd
++#JJK:   -  Access restrictions borrowed from /etc/cups/cupsd.conf
++#JJK:   -  Default policy borrowed from /etc/cups/cupsd.conf but modified
++#JJK:        to allow Add, Delete, and Default printer without (password)
++#JJK:        authentication
++#JJK:   - Note for more detailed logging set: LogLevel debug
+ 
+ cat <<EOF > $USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf
+-AccessLog /dev/null
+-ErrorLog error_log
+-PageLog page_log
++SystemGroup sys root $USER
++AccessLog log/access_log
++ErrorLog log/error_log
++PageLog log/page_log
+ LogLevel info
+ TempDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/tmp
+ RequestRoot $USER_FAKE_HOME/.nx/C-$sess_id/cups/spool
+@@ -605,19 +635,60 @@
+ StateDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/
+ CacheDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/cache
+ 
++Listen localhost:$NODE_CUPSD_PORT
+ Listen $NODE_CUPSD_SOCKET
+ Browsing Off
+ ServerName localhost
+-PidFile $USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd
+ 
++#JJK:  Restrict access to the server...
+ <Location />
+ Order Deny,Allow
+ Deny From All
+ Allow from 127.0.0.1
+ </Location>
+ 
++#JJK: Restrict access to the admin pages...
++<Location /admin>
++  Encryption Required
++  Order allow,deny
++  Allow localhost
++</Location>
++
++#JJK: Restrict access to configuration files...
++<Location /admin/conf>
++  AuthType Basic
++  Require user @SYSTEM
++  Order allow,deny
++  Allow localhost
++</Location>
++
+ # Allow everything for anonymous, because we are protected through UNIX socket
++#JJK: Since allowing access via $NODE_CUPSD_PORT, need to add protection
+ <Policy default>
++  #JJK: Job-related operations must be done by the owner or an adminstrator...
++  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job CUPS-Move-Job>
++    Require user @OWNER @SYSTEM
++    Order deny,allow
++  </Limit>
++
++  #JJK:All administration operations require an adminstrator to authenticate...
++  <Limit Pause-Printer Resume-Printer Set-Printer-Attributes Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After CUPS-Add-Class CUPS-Delete-Class CUPS-Accept-Jobs CUPS-Reject-Jobs>
++    AuthType Basic
++    Require user @SYSTEM
++    Order deny,allow
++  </Limit>
++
++  #JJK: Except need to allow these for nxnode to work
++  <Limit CUPS-Add-Printer CUPS-Delete-Printer CUPS-Set-Default>
++    Order deny,allow
++  </Limit>
++
++  # Only the owner or an administrator can cancel or authenticate a job...
++  <Limit Cancel-Job CUPS-Authenticate-Job>
++    Require user @OWNER @SYSTEM
++    Order deny,allow
++  </Limit>
++
+   <Limit All>
+     AuthType None
+     Order deny,allow
+@@ -629,9 +700,17 @@
+ 
+ 	# copy mime.* files
+ 	cp -af "$CUPS_ETC"/mime.* "$USER_FAKE_HOME/.nx/C-$sess_id/cups/"
++	#JJK: Also copy over pstoraster.convs
++	cp -af "$CUPS_ETC"/mime.* "$CUPS_ETC"/pstoraster.convs "$USER_FAKE_HOME/.nx/C-$sess_id/cups/"
+ 
+ 	# start cupsd
+-	$COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null
++#JJK: Note the directive PidFile in the original cupsd.conf intended for 
++#JJK: recording the pid is a Debianism. Instead, we will use the non-daemon
++#JJK: form of cupsd and capture the pid directly
++#JJK:	$COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null
++	$COMMAND_CUPSD -F -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null &
++	NODE_CUPSD_PID=$!
++	echo $NODE_CUPSD_PID >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ 
+ 	# setup KDE
+ 	if [ "$ENABLE_KDE_CUPS" = "1" -a -e "$KDE_PRINTRC" ]
+@@ -673,6 +752,7 @@
+ 	cat "$USER_FAKE_HOME/.nx/C-$sess_id/scripts/mpoint" | while read mpoint
+ 	do
+ 		$COMMAND_SMBUMOUNT "$mpoint" >/dev/null 2>/dev/null
++		rmdir "$mpoint" >/dev/null 2>/dev/null #JJK:Remove mount point if empty
+ 	done
+ }
+ 
+@@ -1084,6 +1164,7 @@
+ 
+ 			COMMAND_SMBMOUNT=/bin/true
+ 			COMMAND_SMBUMOUNT=/bin/true
++			smbport=139    #JJK: still may want to do printer sharing...
+ 		else # smbfs
+ 			smbport=139
+ 		fi
+@@ -1303,7 +1384,8 @@
+ 	password=$(getparam password)
+ 	share=$(getparam share)
+ 	computername=$(getparam computername)
+-	dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
++#JJK:	dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
++	dir=$(getparam dir | sed 's/\(%24\|\$\)(SHARES)/MyShares/g')
+ 	# rdir=$(getparam dir | sed 's|$(SHARES)/||g')
+ 	display=$(cd $USER_FAKE_HOME/.nx/; echo C-$SERVER_NAME-*-$sessionid | awk 'BEGIN {FS="-"} {i=NF-1; print $i}') 
+ 	mkdir -p "$HOME/$dir"
+@@ -1322,6 +1404,7 @@
+ 		echo "$HOME/$dir" >> "$USER_FAKE_HOME/.nx/C-$SERVER_NAME-$display-$sessionid/scripts/mpoint"
+ 	else
+ 		$PATH_BIN/nxdialog -dialog ok -caption "NXServer Message" -message "Info: Share: '//$computername/$share' failed to mount: $error" -display :$display &
++		rmdir "$HOME/$dir" >/dev/null 2>/dev/null #JJK: Remove mount point if empty
+ 	fi
+ }
+ 
+@@ -1344,6 +1427,12 @@
+ 	# this will also setup the userspace cupsd
+ 	export CUPS_SERVER=$(node_cupsd_get_socket)
+ 	
++#JJK: The following if-stanza kludge added to enable printing when smbport=cifs
++#JJK: since smb printing won't work when forwarded over port 445
++	if [ "$SAMBA_MOUNT_SHARE_PROTOCOL" = "cifs" ] ; then
++		let port=$port+$SMBPORT_OFFSET
++	fi
++
+ 	if [ "$type" = "smb" ]
+ 	then
+ 		DEVICE_URI="smb://$username:$password at 127.0.0.1:$port/$share"
+@@ -1357,6 +1446,9 @@
+ 
+ 	if [ "$ENABLE_CUPS_SEAMLESS" != "1" ]
+ 	then
++        #JJK: Export the following variables for use by nxdialog/nxprint
++        #JJK: Note they are also exported in nxdialog but doesn't help there
++	    export ENABLE_FOOMATIC COMMAND_FOOMATIC PPD_DIR
+ 		MODEL=$($PATH_BIN/nxdialog -printer "$NAME" -display :$display)
+ 		[ -z "$MODEL" -o "$MODEL" = "cancel: aborted" ] && return
+ 	else
+@@ -1364,7 +1456,11 @@
+ 		MODEL="download_cached"
+ 	fi
+ 	
+-	PUBLIC="-u allow:$USER"
++#JJK: I like to also allow 'guest' so you can do things like print
++#JJK: testpages from the CUPS web interface. Note this is required
++#JJK: even for the original user to print test pages	
++#JJK:	PUBLIC="-u allow:$USER"
++	PUBLIC="-u allow:$USER,guest"	
+ 	[ "$public" == "1" ] && PUBLIC=""
+ 
+ 	if [ "$MODEL" = "download_new" -o "$MODEL" = "download_cached" ]
+diff -ruw nx/nxprint nx.new/nxprint
+--- nx/nxprint	2007-12-30 16:34:04.000000000 -0500
++++ nx.new/nxprint	2007-12-30 16:33:58.000000000 -0500
+@@ -51,7 +51,8 @@
+ 	if [ -z "$(find $UTILITY_DRIVERS_CACHE.all -mmin -60 2> /dev/null)" ]
+ 	then
+ 		{ 
+-		cd /usr/share/ppd/
++#JJK:		cd /usr/share/ppd/
++		cd $PPD_DIR
+ 		awk -F '"' '/\*Manufacturer:/ { a[FILENAME]=$2 }
+ 			    /\*NickName:/ { b[FILENAME]=$2 } 
+ 			    END { 
+
+
+
+From berlios at kosowsky.org  Sun Dec 30 23:22:39 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Sun, 30 Dec 2007 17:22:39 -0500
+Subject: [Freenx-devel] Desktop applets all crash on startup
+Message-ID: <18296.6703.591000.431776@gargle.gargle.HOWL>
+
+My apologies for posting this also to the kde list but I'm not sure if
+this is really just a gnome problem...
+
+Whenever I use nx to log in to my Fedora 8 server, ALL of the panel gnome
+applets seem to crash on login.  This results in a a stack of dialog
+error messages of form:
+
+"The panel encountered a problem while loading "OAFIID:GNOME_ShowDesktopApplet
+Do you want to delete the applet from your configuration"
+
+This creates some key usability problems since even basic desktop
+navigation applets like:
+		   ShowDesktop
+		   WorkspaceSwitcher
+		   WindowList
+		   WindowMenu
+ALL CRASH, resulting in a rather crippled desktop experience.
+
+My apologies for posting this also to the kde list but I'm not sure if
+this is really just a gnome problem vs. a more general freenx issue...
+
+Thanks
+
+
+
+From berlios at kosowsky.org  Sun Dec 30 23:55:00 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Sun, 30 Dec 2007 17:55:00 -0500
+Subject: [Freenx-devel] Weird crash of free nx session when browsing cups
+ through the web remotely
+Message-ID: <18296.8644.576000.560398@gargle.gargle.HOWL>
+
+This is a weird one and has me stumped.
+
+I am using freenx with printer sharing to log into my Fedora8 server
+running freenx 0.7.1
+The client runs WinXP with NoMachines NX Client for Windows 3.0.0-78.
+
+When I use smbport=139 to enable printer sharing, I am able to print
+fine from the command line (using lpr -h locahost:11001 -P
+<myprinter>) and also am able to use the cups browser at
+http://localhost:11001 to manage the printer and print test pages from
+within the nx client (i.e. running the web browser from localhost =
+Fedora nx server)
+
+However, when I manually set up a parallel ssh tunnel from my Windoze
+machine using -L 11001:localhost:11001 to browse the cups printer
+interface from my Windows client, everything works fine until I try to
+print a test page. The test page actually prints fine, but shortly
+after the test page goes to the printer, the nx client crashes. The
+session is still there but the client freezes.
+
+Interestingly, if using my patches (see earlier messages), I set
+smbport=cifs (445) and then set up a parallel ssh tunnel to manage the
+cups printing (using -R 13001:<windozeclient>:139) along with another
+tunnel (-L 11001:localhost:11001) to forward the cups web interface, I
+am able to print test pages just fine from the cups web browser on my
+Windows machine.
+
+So, anybody have any ideas why the following occurs:
+- Printing test pages from the cups web interface on localhost
+  independent of whether tunnel is the standard nx/frenx smbfs tunnel
+  (<DISPLAY+3000> -> 139) or my own manual tunnel (13001 -> 139).
+
+- Printing test pages from cups web interface browsed remotely on my Windows
+  machine (by forwarding 11001 -> 11001) works when printing over my
+  own manual tunnel (13001 -> 139) but crashes the nx client when using the
+  default smbfs tunnel (<DISPLAY+3000> -> 139).
+
+In fact, I can narrow down the difference further but setting up two
+artificial test cases with a common setup of forwarding -R
+13001:<mymachine>:139 -L 11001:localhost:11001 and in both cases doing
+the printing over port 13001 and the browsing remotely over 11001.
+The only difference in the entire setup is then:
+	- Case A: smbport=139  -- crashes after sending test page to
+	  	   	  printer
+	- Case B: smbport=445 -- no crash after sending test page to
+	  	   	  printer 
+
+I don't have any clue why I would be seeing such conflicting
+behavior. In particular, why does printing a test page over ssh
+forwarding of port 11001 kill the nx client session when smbport=139
+but not when smbport=445?
+
+I'm stumped...
+
+
+
+From berlios at kosowsky.org  Mon Dec 31 00:10:05 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Sun, 30 Dec 2007 18:10:05 -0500
+Subject: [Freenx-devel] Cumulative patches against 0.7.1
+In-Reply-To: <18296.6161.435000.338715@gargle.gargle.HOWL>
+References: <18296.6161.435000.338715@gargle.gargle.HOWL>
+Message-ID: <18296.9549.322527.704096@consult.pretender>
+
+Here are some notes explaining how one can do simultaneous printer and
+file sharing using my patch.
+
+The way I set it up, cifs file sharing (i.e. mounting of remote client samba
+shares using mount.cifs) will work by default when you have
+SAMBA_MOUNT_SHARE_PROTOCOL="cifs" or "both" (unless you are on windows 9x)
+If you want to do printing *instead* of file-sharing, then you should change
+SAMBA_MOUNT_SHARE_PROTOCOL to "smbfs".
+If you want to do both cifs file sharing and printer sharing, then all you need
+to do is set up a ssh tunnel on the client with the following port-forwarding
+  -R <DISPLAY+SMBPORT_OFFSET>:<client name>:139
+
+I have preset DISPLAY_BASE=2000 (to avoid Fedora port conflicts with
+nasd on port 8000) and SMBPORT_OFFSET=8000. So if you have just one
+nx connection, the tunnel you need to set up will be:
+    -R 13001:<clientname>:139 
+
+Note that in all cases you access the remote client cups printer
+itself from the server using port DISPLAY+9000. In most simple cases,
+this will be port 11001.
+(-h localhost:11001 from the command line or http://localhost:11001 from the
+CUPS web browser)
+Note that my patches to nxnode.conf set up ports and permissions to
+enable use of the cups web browser.
+
+Jeffrey J. Kosowsky wrote at about 17:13:37 -0500 on Sunday, December 30, 2007:
+ > As noted in several of my earlier messages, for various reasons
+ > printer sharing and file sharing won't work properly out of the box,
+ > in particular on Fedora though many of the bugs are probably common to
+ > all distros.  In addition, multimedia breaks on Fedora due to port
+ > conflicts with nasd. Also, even after basic bug fixes, it still is not
+ > possible to get file and printer sharing working simultaneously
+ > without applying various kluges.
+ > 
+ > So, here are my cumulative patches that gets all the above to work
+ > nicely in Fedora and should also be of help to other distros.
+ > 
+ > I have tried to document the patches with my initials (JJK) and
+ > comments to help explain what & why I am doing.
+ > 
+ > Enjoy,
+ > Jeff
+ > 
+ > ----------------------------------------------------------------------
+ > 
+ > diff -ruw nx/nxloadconfig nx.new/nxloadconfig
+ > --- nx/nxloadconfig	2007-12-30 16:34:04.000000000 -0500
+ > +++ nx.new/nxloadconfig	2007-12-30 16:33:58.000000000 -0500
+ > @@ -101,11 +101,28 @@
+ >  
+ >  # Restriction directives
+ >  
+ > -DISPLAY_BASE=1000
+ > +#JJK: DISPLAY_BASE=1000
+ > +#JJK: Change DISPLAY_BASE to 2000 to avoid conflict of DISPLAY_BASE+7000 with nasd
+ > +DISPLAY_BASE=2000
+ >  SESSION_LIMIT=200
+ >  SESSION_USER_LIMIT="" #Calculated
+ >  DISPLAY_LIMIT=200
+ >  
+ > +#JJK: Added the following to allow printing when using cifs mount
+ > +#JJK: Note the smb print port (#139) must then be tunnelled manually
+ > +#JJK: from <DISPLAY+3000+SMBPORT_OFFSET> on the server to port 139 on the host
+ > +#JJK: by running on the client: 
+ > +#JJK:   ssh ... -R <DISPLAY+3000+SMBPORT_OFFSET>:<client name>:139
+ > +#JJK: If SAMBA_MOUNT_SHARE_PROTOCOL="smbfs" (technically, if it doesn't equal
+ > +#JJK  'cifs' or in most cases 'both') then the ssh tunnel is automatically
+ > +#JJK: set up from port <DISPLAY+3000> on the server to port 139 
+ > +#JJK: on the remote client.
+ > +#JJK: Note in *all* cases, the cups printer on the client is accessed from 
+ > +#JJK: the server via the command line, using the following -h flag:
+ > +#JJK:   -h localhost:<DISPLAY+9000> [-P <printer name>]
+ > +#JJK: or via the CUPS web browser using:
+ > +#JJK:   http://localhost:<DISPLAY+9000>
+ > +SMBPORT_OFFSET=8000
+ >  ENABLE_PERSISTENT_SESSION="all"
+ >  DISABLE_PERSISTENT_SESSION=""
+ >  
+ > @@ -154,7 +171,11 @@
+ >  ENABLE_CUPS_SEAMLESS="0"
+ >  CUPS_SEAMLESS_DELAY="10"
+ >  ENABLE_FOOMATIC="1"
+ > -COMMAND_FOOMATIC="/usr/lib/cups/driver/foomatic-ppdfile"
+ > +#JJK: COMMAND_FOOMATIC="/usr/lib/cups/driver/foomatic-ppdfile"
+ > +COMMAND_FOOMATIC="/usr/bin/foomatic-ppdfile"
+ > +
+ > +#JJK: added the following path referenced in nxprint
+ > +PPD_DIR="/usr/share/cups/model" #JJK: Note /usr/share/ppd on some systems
+ >  
+ >  CUPS_BACKEND="/usr/lib/cups/backend"
+ >  CUPS_IPP_BACKEND="$CUPS_BACKEND/nxipp"
+ > @@ -171,7 +192,8 @@
+ >  DEFAULT_X_WM=""
+ >  KILL_DEFAULT_X_WM="1"
+ >  USER_X_STARTUP_SCRIPT=.Xclients
+ > -DEFAULT_X_SESSION=/etc/X11/xdm/Xsession
+ > +#JJK: DEFAULT_X_SESSION=/etc/X11/xdm/Xsession
+ > +DEFAULT_X_SESSION=/etc/X11/xinit/Xsession
+ >  COMMAND_START_KDE=startkde
+ >  COMMAND_START_GNOME=gnome-session
+ >  COMMAND_START_CDE=cdwm
+ > diff -ruw nx/nxnode nx.new/nxnode
+ > --- nx/nxnode	2007-12-30 16:34:04.000000000 -0500
+ > +++ nx.new/nxnode	2007-12-30 16:33:58.000000000 -0500
+ > @@ -20,6 +20,20 @@
+ >  # Read the config file
+ >  . $(PATH=$(cd $(dirname $0) && pwd):$PATH which nxloadconfig) --userconf
+ >  
+ > +#JJK: Added	following 'if' stanza as a kluge since the following variables
+ > +#JJK: need to be set in cmd_node_smbmount node_umount_smb 
+ > +#JJK: but they are currently set only in startsession which is called 
+ > +#JJK: separately from nxserver via ssh so environment variables 
+ > +#JJK: aren't preserved.
+ > +if [[ "$SAMBA_MOUNT_SHARE_PROTOCOL" = "cifs" || \
+ > +	 ( "$SAMBA_MOUNT_SHARE_PROTOCOL" = "both" && \
+ > +	  `which "$COMMAND_SMBMOUNT_CIFS"` && `which "$COMMAND_SMBUMOUNT_CIFS"` ) \
+ > +			]] > /dev/null 2>&1; then
+ > +	COMMAND_SMBMOUNT=$COMMAND_SMBMOUNT_CIFS
+ > +	COMMAND_SMBUMOUNT=$COMMAND_SMBUMOUNT_CIFS
+ > +	SAMBA_MOUNT_SHARE_PROTOCOL="cifs"
+ > +fi
+ > +
+ >  #
+ >  # -----------------------------------------------------------------------------
+ >  # Startup of nxnode
+ > @@ -593,11 +607,27 @@
+ >  	touch "$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ >  	
+ >  	mkdir -p "$USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/tmp" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/certs" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/ppd" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cache"
+ > +	mkdir -p "$USER_FAKE_HOME/.nx/C-$sess_id/cups/log" #JJK cups log file home
+ > +
+ > +#JJK: Modifications to cupsd.conf
+ > +#JJK:   - Added SystemGroup line in order to add $USER to SystemGroup
+ > +#JJK:   - Moved all the log files to log/<log>
+ > +#JJK:   - Set AccessLog to: log/access_log (was /dev/null)
+ > +#JJK:   - Added listening on $NODE_CUPSD_PORT
+ > +#JJK:	         Listen localhost: $NODE_CUPSD_PORT
+ > +#JJK:   - Removed following line because directive is specific to Debian
+ > +#JJK:       PidFile $USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd
+ > +#JJK:   -  Access restrictions borrowed from /etc/cups/cupsd.conf
+ > +#JJK:   -  Default policy borrowed from /etc/cups/cupsd.conf but modified
+ > +#JJK:        to allow Add, Delete, and Default printer without (password)
+ > +#JJK:        authentication
+ > +#JJK:   - Note for more detailed logging set: LogLevel debug
+ >  
+ >  cat <<EOF > $USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf
+ > -AccessLog /dev/null
+ > -ErrorLog error_log
+ > -PageLog page_log
+ > +SystemGroup sys root $USER
+ > +AccessLog log/access_log
+ > +ErrorLog log/error_log
+ > +PageLog log/page_log
+ >  LogLevel info
+ >  TempDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/tmp
+ >  RequestRoot $USER_FAKE_HOME/.nx/C-$sess_id/cups/spool
+ > @@ -605,19 +635,60 @@
+ >  StateDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/
+ >  CacheDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/cache
+ >  
+ > +Listen localhost:$NODE_CUPSD_PORT
+ >  Listen $NODE_CUPSD_SOCKET
+ >  Browsing Off
+ >  ServerName localhost
+ > -PidFile $USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd
+ >  
+ > +#JJK:  Restrict access to the server...
+ >  <Location />
+ >  Order Deny,Allow
+ >  Deny From All
+ >  Allow from 127.0.0.1
+ >  </Location>
+ >  
+ > +#JJK: Restrict access to the admin pages...
+ > +<Location /admin>
+ > +  Encryption Required
+ > +  Order allow,deny
+ > +  Allow localhost
+ > +</Location>
+ > +
+ > +#JJK: Restrict access to configuration files...
+ > +<Location /admin/conf>
+ > +  AuthType Basic
+ > +  Require user @SYSTEM
+ > +  Order allow,deny
+ > +  Allow localhost
+ > +</Location>
+ > +
+ >  # Allow everything for anonymous, because we are protected through UNIX socket
+ > +#JJK: Since allowing access via $NODE_CUPSD_PORT, need to add protection
+ >  <Policy default>
+ > +  #JJK: Job-related operations must be done by the owner or an adminstrator...
+ > +  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job CUPS-Move-Job>
+ > +    Require user @OWNER @SYSTEM
+ > +    Order deny,allow
+ > +  </Limit>
+ > +
+ > +  #JJK:All administration operations require an adminstrator to authenticate...
+ > +  <Limit Pause-Printer Resume-Printer Set-Printer-Attributes Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After CUPS-Add-Class CUPS-Delete-Class CUPS-Accept-Jobs CUPS-Reject-Jobs>
+ > +    AuthType Basic
+ > +    Require user @SYSTEM
+ > +    Order deny,allow
+ > +  </Limit>
+ > +
+ > +  #JJK: Except need to allow these for nxnode to work
+ > +  <Limit CUPS-Add-Printer CUPS-Delete-Printer CUPS-Set-Default>
+ > +    Order deny,allow
+ > +  </Limit>
+ > +
+ > +  # Only the owner or an administrator can cancel or authenticate a job...
+ > +  <Limit Cancel-Job CUPS-Authenticate-Job>
+ > +    Require user @OWNER @SYSTEM
+ > +    Order deny,allow
+ > +  </Limit>
+ > +
+ >    <Limit All>
+ >      AuthType None
+ >      Order deny,allow
+ > @@ -629,9 +700,17 @@
+ >  
+ >  	# copy mime.* files
+ >  	cp -af "$CUPS_ETC"/mime.* "$USER_FAKE_HOME/.nx/C-$sess_id/cups/"
+ > +	#JJK: Also copy over pstoraster.convs
+ > +	cp -af "$CUPS_ETC"/mime.* "$CUPS_ETC"/pstoraster.convs "$USER_FAKE_HOME/.nx/C-$sess_id/cups/"
+ >  
+ >  	# start cupsd
+ > -	$COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null
+ > +#JJK: Note the directive PidFile in the original cupsd.conf intended for 
+ > +#JJK: recording the pid is a Debianism. Instead, we will use the non-daemon
+ > +#JJK: form of cupsd and capture the pid directly
+ > +#JJK:	$COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null
+ > +	$COMMAND_CUPSD -F -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null &
+ > +	NODE_CUPSD_PID=$!
+ > +	echo $NODE_CUPSD_PID >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ >  
+ >  	# setup KDE
+ >  	if [ "$ENABLE_KDE_CUPS" = "1" -a -e "$KDE_PRINTRC" ]
+ > @@ -673,6 +752,7 @@
+ >  	cat "$USER_FAKE_HOME/.nx/C-$sess_id/scripts/mpoint" | while read mpoint
+ >  	do
+ >  		$COMMAND_SMBUMOUNT "$mpoint" >/dev/null 2>/dev/null
+ > +		rmdir "$mpoint" >/dev/null 2>/dev/null #JJK:Remove mount point if empty
+ >  	done
+ >  }
+ >  
+ > @@ -1084,6 +1164,7 @@
+ >  
+ >  			COMMAND_SMBMOUNT=/bin/true
+ >  			COMMAND_SMBUMOUNT=/bin/true
+ > +			smbport=139    #JJK: still may want to do printer sharing...
+ >  		else # smbfs
+ >  			smbport=139
+ >  		fi
+ > @@ -1303,7 +1384,8 @@
+ >  	password=$(getparam password)
+ >  	share=$(getparam share)
+ >  	computername=$(getparam computername)
+ > -	dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
+ > +#JJK:	dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
+ > +	dir=$(getparam dir | sed 's/\(%24\|\$\)(SHARES)/MyShares/g')
+ >  	# rdir=$(getparam dir | sed 's|$(SHARES)/||g')
+ >  	display=$(cd $USER_FAKE_HOME/.nx/; echo C-$SERVER_NAME-*-$sessionid | awk 'BEGIN {FS="-"} {i=NF-1; print $i}') 
+ >  	mkdir -p "$HOME/$dir"
+ > @@ -1322,6 +1404,7 @@
+ >  		echo "$HOME/$dir" >> "$USER_FAKE_HOME/.nx/C-$SERVER_NAME-$display-$sessionid/scripts/mpoint"
+ >  	else
+ >  		$PATH_BIN/nxdialog -dialog ok -caption "NXServer Message" -message "Info: Share: '//$computername/$share' failed to mount: $error" -display :$display &
+ > +		rmdir "$HOME/$dir" >/dev/null 2>/dev/null #JJK: Remove mount point if empty
+ >  	fi
+ >  }
+ >  
+ > @@ -1344,6 +1427,12 @@
+ >  	# this will also setup the userspace cupsd
+ >  	export CUPS_SERVER=$(node_cupsd_get_socket)
+ >  	
+ > +#JJK: The following if-stanza kludge added to enable printing when smbport=cifs
+ > +#JJK: since smb printing won't work when forwarded over port 445
+ > +	if [ "$SAMBA_MOUNT_SHARE_PROTOCOL" = "cifs" ] ; then
+ > +		let port=$port+$SMBPORT_OFFSET
+ > +	fi
+ > +
+ >  	if [ "$type" = "smb" ]
+ >  	then
+ >  		DEVICE_URI="smb://$username:$password at 127.0.0.1:$port/$share"
+ > @@ -1357,6 +1446,9 @@
+ >  
+ >  	if [ "$ENABLE_CUPS_SEAMLESS" != "1" ]
+ >  	then
+ > +        #JJK: Export the following variables for use by nxdialog/nxprint
+ > +        #JJK: Note they are also exported in nxdialog but doesn't help there
+ > +	    export ENABLE_FOOMATIC COMMAND_FOOMATIC PPD_DIR
+ >  		MODEL=$($PATH_BIN/nxdialog -printer "$NAME" -display :$display)
+ >  		[ -z "$MODEL" -o "$MODEL" = "cancel: aborted" ] && return
+ >  	else
+ > @@ -1364,7 +1456,11 @@
+ >  		MODEL="download_cached"
+ >  	fi
+ >  	
+ > -	PUBLIC="-u allow:$USER"
+ > +#JJK: I like to also allow 'guest' so you can do things like print
+ > +#JJK: testpages from the CUPS web interface. Note this is required
+ > +#JJK: even for the original user to print test pages	
+ > +#JJK:	PUBLIC="-u allow:$USER"
+ > +	PUBLIC="-u allow:$USER,guest"	
+ >  	[ "$public" == "1" ] && PUBLIC=""
+ >  
+ >  	if [ "$MODEL" = "download_new" -o "$MODEL" = "download_cached" ]
+ > diff -ruw nx/nxprint nx.new/nxprint
+ > --- nx/nxprint	2007-12-30 16:34:04.000000000 -0500
+ > +++ nx.new/nxprint	2007-12-30 16:33:58.000000000 -0500
+ > @@ -51,7 +51,8 @@
+ >  	if [ -z "$(find $UTILITY_DRIVERS_CACHE.all -mmin -60 2> /dev/null)" ]
+ >  	then
+ >  		{ 
+ > -		cd /usr/share/ppd/
+ > +#JJK:		cd /usr/share/ppd/
+ > +		cd $PPD_DIR
+ >  		awk -F '"' '/\*Manufacturer:/ { a[FILENAME]=$2 }
+ >  			    /\*NickName:/ { b[FILENAME]=$2 } 
+ >  			    END { 
+
+
+From berlios at kosowsky.org  Mon Dec 31 19:40:56 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Mon, 31 Dec 2007 13:40:56 -0500
+Subject: [Freenx-devel] Misleading error message in nxloadconfig
+Message-ID: <18297.14264.533466.269791@consult.pretender>
+
+The warning  messages:
+	Warning: Invalid value "COMMAND_SMBMOUNT=smbmount". You'll not be able
+	to use SAMBA.
+	Warning: Invalid value "COMMAND_SMBUMOUNT=smbumount". You'll not be
+	able to use SAMBA.
+are a bit misleading. The probably should say something more like
+	"... You'll not be able to use SAMBA over port 139 (smbfs)"
+
+Also, similar, parallel error messages should probably now be added
+for COMMAND_SMBMOUNT_CIFS and COMMAND_SMBUMOUNT_CIFS.
+
+More, generally, nxloadconfig could probably use a good scrubbing
+since checking seems to be missing from the addition of several new shell variables.
+
+
+
+From berlios at kosowsky.org  Mon Dec 31 19:46:57 2007
+From: berlios at kosowsky.org (Jeffrey J. Kosowsky)
+Date: Mon, 31 Dec 2007 13:46:57 -0500
+Subject: [Freenx-devel] Cumulative patches against 0.7.1
+In-Reply-To: <18296.9549.322527.704096@consult.pretender>
+References: <18296.6161.435000.338715@gargle.gargle.HOWL>
+	<18296.9549.322527.704096@consult.pretender>
+Message-ID: <18297.14625.332481.517119@consult.pretender>
+
+Here is a slightly updated patch set that fixes a couple of the
+variables in nxloadconfig to work better with Fedora (and probably
+also some other distros)
+
+--------------------------------------------------------------------------
+
+diff -ruw nx/nxloadconfig nx.new/nxloadconfig
+--- nx/nxloadconfig	2007-12-31 13:08:22.000000000 -0500
++++ nx.new/nxloadconfig	2007-12-31 13:31:26.000000000 -0500
+@@ -101,11 +101,28 @@
+ 
+ # Restriction directives
+ 
+-DISPLAY_BASE=1000
++#JJK: DISPLAY_BASE=1000
++#JJK: Change DISPLAY_BASE to 2000 to avoid conflict of DISPLAY_BASE+7000 with nasd
++DISPLAY_BASE=2000
+ SESSION_LIMIT=200
+ SESSION_USER_LIMIT="" #Calculated
+ DISPLAY_LIMIT=200
+ 
++#JJK: Added the following to allow printing when using cifs mount
++#JJK: Note the smb print port (#139) must then be tunnelled manually
++#JJK: from <DISPLAY+3000+SMBPORT_OFFSET> on the server to port 139 on the host
++#JJK: by running on the client: 
++#JJK:   ssh ... -R <DISPLAY+3000+SMBPORT_OFFSET>:<client name>:139
++#JJK: If SAMBA_MOUNT_SHARE_PROTOCOL="smbfs" (technically, if it doesn't equal
++#JJK  'cifs' or in most cases 'both') then the ssh tunnel is automatically
++#JJK: set up from port <DISPLAY+3000> on the server to port 139 
++#JJK: on the remote client.
++#JJK: Note in *all* cases, the cups printer on the client is accessed from 
++#JJK: the server via the command line, using the following -h flag:
++#JJK:   -h localhost:<DISPLAY+9000> [-P <printer name>]
++#JJK: or via the CUPS web browser using:
++#JJK:   http://localhost:<DISPLAY+9000>
++SMBPORT_OFFSET=8000
+ ENABLE_PERSISTENT_SESSION="all"
+ DISABLE_PERSISTENT_SESSION=""
+ 
+@@ -154,7 +171,11 @@
+ ENABLE_CUPS_SEAMLESS="0"
+ CUPS_SEAMLESS_DELAY="10"
+ ENABLE_FOOMATIC="1"
+-COMMAND_FOOMATIC="/usr/lib/cups/driver/foomatic-ppdfile"
++#JJK: COMMAND_FOOMATIC="/usr/lib/cups/driver/foomatic-ppdfile"
++COMMAND_FOOMATIC="foomatic-ppdfile"
++
++#JJK: added the following path referenced in nxprint
++PPD_DIR="/usr/share/cups/model" #JJK: Note /usr/share/ppd on some systems
+ 
+ CUPS_BACKEND="/usr/lib/cups/backend"
+ CUPS_IPP_BACKEND="$CUPS_BACKEND/nxipp"
+@@ -171,12 +192,14 @@
+ DEFAULT_X_WM=""
+ KILL_DEFAULT_X_WM="1"
+ USER_X_STARTUP_SCRIPT=.Xclients
+-DEFAULT_X_SESSION=/etc/X11/xdm/Xsession
++#JJK: DEFAULT_X_SESSION=/etc/X11/xdm/Xsession
++DEFAULT_X_SESSION=/etc/X11/xinit/Xsession
+ COMMAND_START_KDE=startkde
+ COMMAND_START_GNOME=gnome-session
+ COMMAND_START_CDE=cdwm
+ COMMAND_XTERM=xterm
+-COMMAND_XAUTH=/usr/X11R6/bin/xauth
++#JJK: COMMAND_XAUTH=/usr/X11R6/bin/xauth
++COMMAND_XAUTH=xauth
+ COMMAND_SMBMOUNT=smbmount
+ COMMAND_SMBUMOUNT=smbumount
+ COMMAND_SMBMOUNT_CIFS=/sbin/mount.cifs
+@@ -189,7 +212,8 @@
+ COMMAND_PERL=perl
+ COMMAND_RDESKTOP="rdesktop"
+ COMMAND_VNCVIEWER="vncviewer"
+-COMMAND_VNCPASSWD="$PATH_BIN/nxpasswd"
++#JJK: COMMAND_VNCPASSWD="$PATH_BIN/nxpasswd"
++COMMAND_VNCPASSWD="vncpasswd"
+ COMMAND_X11VNC="x11vnc"
+ 
+ # Misc directives
+@@ -297,7 +321,8 @@
+ [ -z "$AGENT_LIBRARY_PATH" ] && AGENT_LIBRARY_PATH=$PATH_LIB
+ [ -z "$PROXY_LIBRARY_PATH" ] && PROXY_LIBRARY_PATH=$PATH_LIB
+ [ -z "$APPLICATION_LIBRARY_PATH" ] && APPLICATION_LIBRARY_PATH=$PATH_LIB
+-[ -z "$APPLICATION_LIBRARY_PRELOAD" ] && APPLICATION_LIBRARY_PRELOAD="$APPLICATION_LIBRARY_PATH/libX11.so.6.2:$APPLICATION_LIBRARY_PATH/libXext.so.6.4:$APPLICATION_LIBRARY_PATH/libXcomp.so:$APPLICATION_LIBRARY_PATH/libXcompext.so:$APPLICATION_LIBRARY_PATH/libXrender.so.1.2"
++#JJK: [ -z "$APPLICATION_LIBRARY_PRELOAD" ] && APPLICATION_LIBRARY_PRELOAD="$APPLICATION_LIBRARY_PATH/libX11.so.6.2:$APPLICATION_LIBRARY_PATH/libXext.so.6.4:$APPLICATION_LIBRARY_PATH/libXcomp.so:$APPLICATION_LIBRARY_PATH/libXcompext.so:$APPLICATION_LIBRARY_PATH/libXrender.so.1.2"
++[ -z "$APPLICATION_LIBRARY_PRELOAD" ] && APPLICATION_LIBRARY_PRELOAD="$APPLICATION_LIBRARY_PATH/libX11.so.6.2:$APPLICATION_LIBRARY_PATH/libXext.so.6.4:$APPLICATION_LIBRARY_PATH/libXcomp.so.2:$APPLICATION_LIBRARY_PATH/libXcompext.so.2:$APPLICATION_LIBRARY_PATH/libXrender.so.1.2"
+ if [ -z "$ENABLE_2_0_0_BACKEND" ]
+ then
+ 	ENABLE_2_0_0_BACKEND="1"
+diff -ruw nx/nxnode nx.new/nxnode
+--- nx/nxnode	2007-12-31 13:08:22.000000000 -0500
++++ nx.new/nxnode	2007-12-31 13:31:26.000000000 -0500
+@@ -20,6 +20,20 @@
+ # Read the config file
+ . $(PATH=$(cd $(dirname $0) && pwd):$PATH which nxloadconfig) --userconf
+ 
++#JJK: Added	following 'if' stanza as a kluge since the following variables
++#JJK: need to be set in cmd_node_smbmount node_umount_smb 
++#JJK: but they are currently set only in startsession which is called 
++#JJK: separately from nxserver via ssh so environment variables 
++#JJK: aren't preserved.
++if [[ "$SAMBA_MOUNT_SHARE_PROTOCOL" = "cifs" || \
++	 ( "$SAMBA_MOUNT_SHARE_PROTOCOL" = "both" && \
++	  `which "$COMMAND_SMBMOUNT_CIFS"` && `which "$COMMAND_SMBUMOUNT_CIFS"` ) \
++			]] > /dev/null 2>&1; then
++	COMMAND_SMBMOUNT=$COMMAND_SMBMOUNT_CIFS
++	COMMAND_SMBUMOUNT=$COMMAND_SMBUMOUNT_CIFS
++	SAMBA_MOUNT_SHARE_PROTOCOL="cifs"
++fi
++
+ #
+ # -----------------------------------------------------------------------------
+ # Startup of nxnode
+@@ -593,11 +607,27 @@
+ 	touch "$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ 	
+ 	mkdir -p "$USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/tmp" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/certs" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/ppd" "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cache"
++	mkdir -p "$USER_FAKE_HOME/.nx/C-$sess_id/cups/log" #JJK cups log file home
++
++#JJK: Modifications to cupsd.conf
++#JJK:   - Added SystemGroup line in order to add $USER to SystemGroup
++#JJK:   - Moved all the log files to log/<log>
++#JJK:   - Set AccessLog to: log/access_log (was /dev/null)
++#JJK:   - Added listening on $NODE_CUPSD_PORT
++#JJK:	         Listen localhost: $NODE_CUPSD_PORT
++#JJK:   - Removed following line because directive is specific to Debian
++#JJK:       PidFile $USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd
++#JJK:   -  Access restrictions borrowed from /etc/cups/cupsd.conf
++#JJK:   -  Default policy borrowed from /etc/cups/cupsd.conf but modified
++#JJK:        to allow Add, Delete, and Default printer without (password)
++#JJK:        authentication
++#JJK:   - Note for more detailed logging set: LogLevel debug
+ 
+ cat <<EOF > $USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf
+-AccessLog /dev/null
+-ErrorLog error_log
+-PageLog page_log
++SystemGroup sys root $USER
++AccessLog log/access_log
++ErrorLog log/error_log
++PageLog log/page_log
+ LogLevel info
+ TempDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/tmp
+ RequestRoot $USER_FAKE_HOME/.nx/C-$sess_id/cups/spool
+@@ -605,19 +635,60 @@
+ StateDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/
+ CacheDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/cache
+ 
++Listen localhost:$NODE_CUPSD_PORT
+ Listen $NODE_CUPSD_SOCKET
+ Browsing Off
+ ServerName localhost
+-PidFile $USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd
+ 
++#JJK:  Restrict access to the server...
+ <Location />
+ Order Deny,Allow
+ Deny From All
+ Allow from 127.0.0.1
+ </Location>
+ 
++#JJK: Restrict access to the admin pages...
++<Location /admin>
++  Encryption Required
++  Order allow,deny
++  Allow localhost
++</Location>
++
++#JJK: Restrict access to configuration files...
++<Location /admin/conf>
++  AuthType Basic
++  Require user @SYSTEM
++  Order allow,deny
++  Allow localhost
++</Location>
++
+ # Allow everything for anonymous, because we are protected through UNIX socket
++#JJK: Since allowing access via $NODE_CUPSD_PORT, need to add protection
+ <Policy default>
++  #JJK: Job-related operations must be done by the owner or an adminstrator...
++  <Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job CUPS-Move-Job>
++    Require user @OWNER @SYSTEM
++    Order deny,allow
++  </Limit>
++
++  #JJK:All administration operations require an adminstrator to authenticate...
++  <Limit Pause-Printer Resume-Printer Set-Printer-Attributes Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After CUPS-Add-Class CUPS-Delete-Class CUPS-Accept-Jobs CUPS-Reject-Jobs>
++    AuthType Basic
++    Require user @SYSTEM
++    Order deny,allow
++  </Limit>
++
++  #JJK: Except need to allow these for nxnode to work
++  <Limit CUPS-Add-Printer CUPS-Delete-Printer CUPS-Set-Default>
++    Order deny,allow
++  </Limit>
++
++  # Only the owner or an administrator can cancel or authenticate a job...
++  <Limit Cancel-Job CUPS-Authenticate-Job>
++    Require user @OWNER @SYSTEM
++    Order deny,allow
++  </Limit>
++
+   <Limit All>
+     AuthType None
+     Order deny,allow
+@@ -629,9 +700,17 @@
+ 
+ 	# copy mime.* files
+ 	cp -af "$CUPS_ETC"/mime.* "$USER_FAKE_HOME/.nx/C-$sess_id/cups/"
++	#JJK: Also copy over pstoraster.convs
++	cp -af "$CUPS_ETC"/mime.* "$CUPS_ETC"/pstoraster.convs "$USER_FAKE_HOME/.nx/C-$sess_id/cups/"
+ 
+ 	# start cupsd
+-	$COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null
++#JJK: Note the directive PidFile in the original cupsd.conf intended for 
++#JJK: recording the pid is a Debianism. Instead, we will use the non-daemon
++#JJK: form of cupsd and capture the pid directly
++#JJK:	$COMMAND_CUPSD -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null
++	$COMMAND_CUPSD -F -c "$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf" &>/dev/null </dev/null &
++	NODE_CUPSD_PID=$!
++	echo $NODE_CUPSD_PID >"$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd"
+ 
+ 	# setup KDE
+ 	if [ "$ENABLE_KDE_CUPS" = "1" -a -e "$KDE_PRINTRC" ]
+@@ -673,6 +752,7 @@
+ 	cat "$USER_FAKE_HOME/.nx/C-$sess_id/scripts/mpoint" | while read mpoint
+ 	do
+ 		$COMMAND_SMBUMOUNT "$mpoint" >/dev/null 2>/dev/null
++		rmdir "$mpoint" >/dev/null 2>/dev/null #JJK:Remove mount point if empty
+ 	done
+ }
+ 
+@@ -1084,6 +1164,7 @@
+ 
+ 			COMMAND_SMBMOUNT=/bin/true
+ 			COMMAND_SMBUMOUNT=/bin/true
++			smbport=139    #JJK: still may want to do printer sharing...
+ 		else # smbfs
+ 			smbport=139
+ 		fi
+@@ -1303,7 +1384,8 @@
+ 	password=$(getparam password)
+ 	share=$(getparam share)
+ 	computername=$(getparam computername)
+-	dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
++#JJK:	dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
++	dir=$(getparam dir | sed 's/\(%24\|\$\)(SHARES)/MyShares/g')
+ 	# rdir=$(getparam dir | sed 's|$(SHARES)/||g')
+ 	display=$(cd $USER_FAKE_HOME/.nx/; echo C-$SERVER_NAME-*-$sessionid | awk 'BEGIN {FS="-"} {i=NF-1; print $i}') 
+ 	mkdir -p "$HOME/$dir"
+@@ -1322,6 +1404,7 @@
+ 		echo "$HOME/$dir" >> "$USER_FAKE_HOME/.nx/C-$SERVER_NAME-$display-$sessionid/scripts/mpoint"
+ 	else
+ 		$PATH_BIN/nxdialog -dialog ok -caption "NXServer Message" -message "Info: Share: '//$computername/$share' failed to mount: $error" -display :$display &
++		rmdir "$HOME/$dir" >/dev/null 2>/dev/null #JJK: Remove mount point if empty
+ 	fi
+ }
+ 
+@@ -1344,6 +1427,12 @@
+ 	# this will also setup the userspace cupsd
+ 	export CUPS_SERVER=$(node_cupsd_get_socket)
+ 	
++#JJK: The following if-stanza kludge added to enable printing when smbport=cifs
++#JJK: since smb printing won't work when forwarded over port 445
++	if [ "$SAMBA_MOUNT_SHARE_PROTOCOL" = "cifs" ] ; then
++		let port=$port+$SMBPORT_OFFSET
++	fi
++
+ 	if [ "$type" = "smb" ]
+ 	then
+ 		DEVICE_URI="smb://$username:$password at 127.0.0.1:$port/$share"
+@@ -1357,6 +1446,9 @@
+ 
+ 	if [ "$ENABLE_CUPS_SEAMLESS" != "1" ]
+ 	then
++        #JJK: Export the following variables for use by nxdialog/nxprint
++        #JJK: Note they are also exported in nxdialog but doesn't help there
++	    export ENABLE_FOOMATIC COMMAND_FOOMATIC PPD_DIR
+ 		MODEL=$($PATH_BIN/nxdialog -printer "$NAME" -display :$display)
+ 		[ -z "$MODEL" -o "$MODEL" = "cancel: aborted" ] && return
+ 	else
+@@ -1364,7 +1456,11 @@
+ 		MODEL="download_cached"
+ 	fi
+ 	
+-	PUBLIC="-u allow:$USER"
++#JJK: I like to also allow 'guest' so you can do things like print
++#JJK: testpages from the CUPS web interface. Note this is required
++#JJK: even for the original user to print test pages	
++#JJK:	PUBLIC="-u allow:$USER"
++	PUBLIC="-u allow:$USER,guest"	
+ 	[ "$public" == "1" ] && PUBLIC=""
+ 
+ 	if [ "$MODEL" = "download_new" -o "$MODEL" = "download_cached" ]
+diff -ruw nx/nxprint nx.new/nxprint
+--- nx/nxprint	2007-12-31 13:08:22.000000000 -0500
++++ nx.new/nxprint	2007-12-31 13:31:26.000000000 -0500
+@@ -51,7 +51,8 @@
+ 	if [ -z "$(find $UTILITY_DRIVERS_CACHE.all -mmin -60 2> /dev/null)" ]
+ 	then
+ 		{ 
+-		cd /usr/share/ppd/
++#JJK:		cd /usr/share/ppd/
++		cd $PPD_DIR
+ 		awk -F '"' '/\*Manufacturer:/ { a[FILENAME]=$2 }
+ 			    /\*NickName:/ { b[FILENAME]=$2 } 
+ 			    END { 
+
+

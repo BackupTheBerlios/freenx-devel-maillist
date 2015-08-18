@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] Some potential messiness in nxprint
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20Some%20potential%20messiness%20in%20nxprint&In-Reply-To=%3C18272.59072.74590.326822%40consult.pretender%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] Some potential messiness in nxprint</H1>
+    <B>Jeffrey J. Kosowsky</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20Some%20potential%20messiness%20in%20nxprint&In-Reply-To=%3C18272.59072.74590.326822%40consult.pretender%3E"
+       TITLE="[Freenx-devel] Some potential messiness in nxprint">berlios at kosowsky.org
+       </A><BR>
+    <I>Thu Dec 13 09:01:04 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[Freenx-devel] Question regarding usage of &quot;Download (CUPS)&quot;	option
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[Freenx-devel] Suggestion to test ports for conflicts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Forwarding this email to the list per Fabian's suggestion...
+Jeffrey J. Kosowsky wrote at about 00:18:21 -0500 on Monday, December 10, 2007:
+ &gt; Fabian,
+ &gt; When I originally wrote the caching logic to speed up listing of the
+ &gt; foomatic ppdfiles, I placed the caching logic in nxclient (what would
+ &gt; now be nxdialog).
+ &gt; 
+ &gt; This allowed one to still run &quot;nxprint --drivers&quot; as a standalone
+ &gt; routine. Now with the cache logic buried there, you end up writing to
+ &gt; the file &quot;.all&quot; in the local directory if you just call it as a
+ &gt; standalone since the variable UTILITY_DRIVERS_CACHE is not set. So,
+ &gt; I'm thinking that it might be better to put the caching logic back in
+ &gt; the utility printing functions in nxdialog.
+ &gt; 
+ &gt; Alternatively, would it be better to take all the printing utilities
+ &gt; out of nxdialog and put them in nxprint and make nxdialog more of a
+ &gt; pure dialog generating script.
+ &gt; 
+ &gt; Also, is the option &quot;nxprint --printers&quot; ever used now?
+ &gt; All it really does is call &quot;lpstat -p&quot;. And that itself may be wrong
+ &gt; since you probably really want to call &quot;lpstat -p -h localhost:$port&quot;
+ &gt; since you want to be accessing the local cups process.
+ &gt; 
+ &gt; The reason that I am writing this is that I am finding that with each
+ &gt; new release of freenx, the code gets a bit more complicated and
+ &gt; difficult to follow. Of course, the functionality and flexibility is
+ &gt; much improved and some areas are tightened up. But at the same time,
+ &gt; naturally, some of it gets a bit more difficult to follow -- this is
+ &gt; NOT A COMPLAINT -- just an observation about whether it makes sense at
+ &gt; some point to take a step back and reorganize the code. For example,
+ &gt; it is not always clear (to me) which routines call which other
+ &gt; routines and which variables are passed or sourced. The net result is
+ &gt; it took me half a day to find the two simple bugs that I reported in
+ &gt; the previous email. 
+ &gt; 
+ &gt; I do of course appreciate all the hard work you have put into building
+ &gt; this code and I want to be as helpful as I can with my limited
+ &gt; abilities and understanding.
+ &gt; 
+ &gt; Thanks for all the help!
+ &gt; Jeff
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[Freenx-devel] Question regarding usage of &quot;Download (CUPS)&quot;	option
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[Freenx-devel] Suggestion to test ports for conflicts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

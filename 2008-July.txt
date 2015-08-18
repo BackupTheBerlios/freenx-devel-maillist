@@ -1,0 +1,19 @@
+From julius.junghans at gmx.de  Thu Jul  3 14:36:29 2008
+From: julius.junghans at gmx.de (Julius)
+Date: Thu, 03 Jul 2008 14:36:29 +0200
+Subject: [Freenx-devel] public key authentication
+Message-ID: <1215088589.3306.3.camel@localhost.localdomain>
+
+Hi,
+
+ive found a posting in the archives that says you cant use public key
+authentication for the actual user (not nx), i also had to enable 
+PasswordAuthentication yes
+in sshd_config and enter my remote system password to get a connection.
+since ssh is able to establish a secure connection over a insecure
+network this should be added to freenx as well.
+
+Julius
+
+
+

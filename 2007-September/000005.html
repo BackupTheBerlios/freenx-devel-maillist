@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] An update to nxclientlib: nxcl
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20An%20update%20to%20nxclientlib%3A%20nxcl&In-Reply-To=%3C1189523814.14160.6.camel%40circle.hypercube%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] An update to nxclientlib: nxcl</H1>
+    <B>Seb James</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20An%20update%20to%20nxclientlib%3A%20nxcl&In-Reply-To=%3C1189523814.14160.6.camel%40circle.hypercube%3E"
+       TITLE="[Freenx-devel] An update to nxclientlib: nxcl">seb at esfnet.co.uk
+       </A><BR>
+    <I>Tue Sep 11 17:16:54 CEST 2007</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#5">[ date ]</a>
+              <a href="thread.html#5">[ thread ]</a>
+              <a href="subject.html#5">[ subject ]</a>
+              <a href="author.html#5">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi list,
+
+I just committed a first alpha (though working) version of nxcl.
+
+nxcl is an update to George Wright's nxclientlib.
+
+I wanted to remove the Qt dependency so that I could build a GTK+ NX
+client without the need to ship Qt as a dependency.
+
+nxcl gives you a library called libnxcl which you can link to with your
+application to build an NX client, and a binary called nxcl which is a
+self contained program which can negotiate an NX Connection. You can
+write a frontend application (To choose your connection and enter
+username/password) and communicate with nxcl using the dbus interface.
+
+There is a simple command line client in there, called nxcmd. nxcmd
+launches nxcl, then sends settings via dbus so that nxcl can negotiate
+the connection. It's in there as an example really. If someone wanted a
+complete command line NX client, it would be the easiest place to start
+from.
+
+I'll soon also be committing a GTK+ program called nxlaunch, but there
+is some tidying up to do there first.
+
+I tested nxcl with NoMachine's NX server version 3.0.0. I tried for a
+short while to make it work with freenx (which uses NX version 1.5.0
+libraries), but that didn't work out. This was a little strange, as
+George's code works with a 1.5.0 connection. Hopefully someone out there
+can modify the code to support connections to 1.5.0 servers. Ideally,
+I'd like a compile time check to determine the version of the nxssh and
+nxproxy program that are available on the target system and then
+preprocessor directives in the code to modify the behaviour where
+necessary... Or perhaps runtime checks, so that the user can update
+nxssh and nxproxy without needing to re-compile nxcl. That'd probably be
+better.
+
+Runtime dependencies are just glibc and libstdc++ for libnxcl and these
+plus libdbus-1 and a couple of X libraries for nxcl:
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/freenx-devel">seb at circle</A> 16:12:56 ~]$ ldd /usr/local/lib/libnxcl.so.1.0.0
+        linux-gate.so.1 =&gt;  (0xffffe000)
+        libstdc++.so.6 =&gt; /usr/lib/gcc/i686-pc-linux-gnu/3.4.6/libstdc++.so.6 (0xb7e0f000)
+        libm.so.6 =&gt; /lib/tls/libm.so.6 (0xb7deb000)
+        libc.so.6 =&gt; /lib/tls/libc.so.6 (0xb7cc5000)
+        libgcc_s.so.1 =&gt; /usr/lib/gcc/i686-pc-linux-gnu/3.4.6/libgcc_s.so.1 (0xb7cbc000)
+        /lib/ld-linux.so.2 (0x80000000)
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/freenx-devel">seb at circle</A> 16:13:06 ~]$ ldd /usr/local/bin/nxcl
+        linux-gate.so.1 =&gt;  (0xffffe000)
+        libdbus-1.so.3 =&gt; /usr/lib/libdbus-1.so.3 (0xb7eac000)
+        libnxcl.so.1 =&gt; /usr/local/lib/libnxcl.so.1 (0xb7e91000)
+        libstdc++.so.6 =&gt; /usr/lib/gcc/i686-pc-linux-gnu/3.4.6/libstdc++.so.6 (0xb7dc1000)
+        libX11.so.6 =&gt; /usr/lib/libX11.so.6 (0xb7cf5000)
+        libXau.so.6 =&gt; /usr/lib/libXau.so.6 (0xb7cf2000)
+        libXdmcp.so.6 =&gt; /usr/lib/libXdmcp.so.6 (0xb7cec000)
+        libdl.so.2 =&gt; /lib/libdl.so.2 (0xb7ce8000)
+        libm.so.6 =&gt; /lib/tls/libm.so.6 (0xb7cc4000)
+        libgcc_s.so.1 =&gt; /usr/lib/gcc/i686-pc-linux-gnu/3.4.6/libgcc_s.so.1 (0xb7cbb000)
+        libc.so.6 =&gt; /lib/tls/libc.so.6 (0xb7b95000)
+        /lib/ld-linux.so.2 (0xb7f03000)
+
+best regards,
+
+Seb James
+--
+Embedded Software Foundry Ltd.
+Tel: +44 (0)845 4580277
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#5">[ date ]</a>
+              <a href="thread.html#5">[ thread ]</a>
+              <a href="subject.html#5">[ subject ]</a>
+              <a href="author.html#5">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

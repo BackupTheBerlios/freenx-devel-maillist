@@ -1,0 +1,33 @@
+From info at emre.de  Thu Oct 18 09:57:34 2007
+From: info at emre.de (Emre Bastuz)
+Date: Thu, 18 Oct 2007 09:57:34 +0200
+Subject: [Freenx-devel] FreeNX as Application Level Proxy for RDP
+Message-ID: <471711EE.6000709@emre.de>
+
+Hi,
+
+I am looking for an application level proxy for the RDP
+protocoll that runs on Linux.
+
+To be exact I would like to accept RDP connections on an
+IP and do forwarding decisions based on the hostname
+used in the initial connect (as opposed to the ip address
+used to connect, something like Apache name based virtual hosts).
+
+Is something like this possible with RDP or FreeNX?
+
+Is there any other software that might be able to do this?
+
+Any hint will be greatly appreciated :)
+
+Cheers,
+
+Emre
+
+-- 
+http://www.emre.de                        UIN: 561260
+PGP Key ID: 0xAFAC77FD
+
+I don't see why some people even HAVE cars. -- Calvin
+
+

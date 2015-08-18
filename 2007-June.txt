@@ -1,0 +1,142 @@
+From mvyver at gmail.com  Mon Jun  4 07:26:23 2007
+From: mvyver at gmail.com (Mark Van De Vyver)
+Date: Mon, 4 Jun 2007 15:26:23 +1000
+Subject: [Freenx-devel] User nx not allowed because account is User nx not
+	allowed because account is locked
+Message-ID: <389c43e40706032226j28eecfadi1691d7d0f0da7c95@mail.gmail.com>
+
+Hi,
+Thank you for all the effort that has gone into FreeNX, and for making
+your work freely available!
+
+Essentially the FreeNX the install failed due to the nx user being
+locked.  I'm not sure if this is peculiar to my setup. but I worked
+around this by running 'sudo passwd -d nx' after running nxsetup.
+
+The following are some datails.
+
+I had sshd working.
+
+I tried installing FreeNX-0.6.0-25.1 uaing openSuSE 10.2:
+mv-laptop:~ # uname -a
+Linux mv-laptop 2.6.18.8-0.3-default #1 SMP Tue Apr 17 08:42:35 UTC
+2007 i686 i686 i386 GNU/Linux
+
+The install command was:
+
+nxsetup --install --setup-nomachine-key --clean --purge
+
+Console output showed:
+
+<snip>
+----> Testing your nxserver connection ...
+Permission denied (publickey,keyboard-interactive).
+Fatal error: Could not connect to NX Server.
+<snip>
+
+In /var/log/messages I see:
+
+<snip>
+Jun 3 11:59:10 mv-laptop sshd[20736]: debug1: Local version string
+SSH-2.0-OpenSSH_4.4
+Jun 3 11:59:10 mv-laptop sshd[20736]: User nx not allowed because account is
+locked
+Jun 3 11:59:10 mv-laptop sshd[20736]: debug1: do_cleanup
+<snip>
+
+Eventually I was able to work around this by running
+
+sudo passwd -d nx
+
+
+I hope this helps someone else?
+Regards
+Mark
+
+
+From mvyver at gmail.com  Mon Jun  4 07:44:00 2007
+From: mvyver at gmail.com (Mark Van De Vyver)
+Date: Mon, 4 Jun 2007 15:44:00 +1000
+Subject: [Freenx-devel] Bug: negotiating link parameters -> timeout ON
+	resume session. v.0.6.0/2.1.0-17
+Message-ID: <389c43e40706032244y56d4acbckb357c4f79e17742c@mail.gmail.com>
+
+Hi,
+Thanks for all the efforts placed into FreeNX.
+
+I'm using FreeNX-0.6.0-25.1 on an opeSuSE 10.2 distribution (i686).
+
+I've followed the thread of emails about the topic described in this
+emails subject line, and have two questions:
+
+1) For the following suggested change to nx server:
+-exec $COMMAND_NETCAT [...]
++$COMMAND_NETCAT [...]
++kill -9 $PPID # Lets kill our parent sshd process
+
+Where does $PPID come from? - it is not in my version of the nxserver script.
+
+2) If instead of the above I add the following line to the top of nxserver:
+
+pstree -p nx| perl -e '@lines=<STDIN>; foreach $line  (@lines){if >
+($line=~/^sshd\((\d+)\)$/) { kill 9, $1;}}'
+
+I get the error:
+
+syntax error at -e line 1, near "if >"
+syntax error at -e line 1, near "}}"
+
+I'm not a Linux/perl/bash guru so will greatly  appreciate any help.
+Thanks in advance
+Mark
+
+
+From mvyver at gmail.com  Mon Jun  4 23:48:59 2007
+From: mvyver at gmail.com (Mark Van De Vyver)
+Date: Tue, 5 Jun 2007 07:48:59 +1000
+Subject: [Freenx-devel] Bug: negotiating link parameters -> timeout ON
+	resume session. v.0.6.0/2.1.0-17
+In-Reply-To: <389c43e40706032244y56d4acbckb357c4f79e17742c@mail.gmail.com>
+References: <389c43e40706032244y56d4acbckb357c4f79e17742c@mail.gmail.com>
+Message-ID: <389c43e40706041448uf126cf2p8b1eb49847c31641@mail.gmail.com>
+
+Hi,
+Steep learning curve... I've worked out most of this - none of the
+suggested fixes made any difference in opensuse 10.2.
+I'm about to try the cvs version of the freenx-server and I'll switch
+to the knx client.
+
+Mark
+
+On 6/4/07, Mark Van De Vyver <mvyver at gmail.com> wrote:
+> Hi,
+> Thanks for all the efforts placed into FreeNX.
+>
+> I'm using FreeNX-0.6.0-25.1 on an opeSuSE 10.2 distribution (i686).
+>
+> I've followed the thread of emails about the topic described in this
+> emails subject line, and have two questions:
+>
+> 1) For the following suggested change to nx server:
+> -exec $COMMAND_NETCAT [...]
+> +$COMMAND_NETCAT [...]
+> +kill -9 $PPID # Lets kill our parent sshd process
+>
+> Where does $PPID come from? - it is not in my version of the nxserver script.
+>
+> 2) If instead of the above I add the following line to the top of nxserver:
+>
+> pstree -p nx| perl -e '@lines=<STDIN>; foreach $line  (@lines){if >
+> ($line=~/^sshd\((\d+)\)$/) { kill 9, $1;}}'
+>
+> I get the error:
+>
+> syntax error at -e line 1, near "if >"
+> syntax error at -e line 1, near "}}"
+>
+> I'm not a Linux/perl/bash guru so will greatly  appreciate any help.
+> Thanks in advance
+> Mark
+>
+
+

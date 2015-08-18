@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] how to allow only selected programs via NX?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20how%20to%20allow%20only%20selected%20programs%20via%20NX%3F&In-Reply-To=%3C47603E3B.3060708%40severinsson.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000008.html">
+   <LINK REL="Next"  HREF="000018.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] how to allow only selected programs via NX?</H1>
+    <B>Jon Severinsson</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20how%20to%20allow%20only%20selected%20programs%20via%20NX%3F&In-Reply-To=%3C47603E3B.3060708%40severinsson.net%3E"
+       TITLE="[Freenx-devel] how to allow only selected programs via NX?">jon at severinsson.net
+       </A><BR>
+    <I>Wed Dec 12 21:02:03 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000008.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+        <LI>Next message: <A HREF="000018.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+That would be done by standard possix permissions, not any freenx
+setting. Simply make sure the users in question does not have the
+execute bit set on any applications they are not supposed to run.
+(OK, it's perhaps not very simple, but it would still be the &quot;propper&quot;
+way to go).
+
+There is no way freenx could ever block a user runing any program it has
+possix permissions to execute. It would be possible (though not
+necessarily simple) to modify the freenx scripts so it will refuse the
+connection if given a blacklisted (or a non-whitelisted) executable to
+launch, but there is no way for freenx to make sure an approved
+application doesn't in turn launch a unapproved application, which would
+make such a feature useless for security purposes.
+
+Regards
+Jon &quot;Jonno&quot; Severinsson
+
+Maciej Sieczka skrev:
+&gt;<i> I asked this question on forum [1] but nobody replied. As I
+</I>&gt;<i> cannot join the user ML (se my other message sent just a
+</I>&gt;<i> moment ago) I'm sending my question here:
+</I>&gt;<i> 
+</I>&gt;<i> Is it possible to enable only selected programs to be run on
+</I>&gt;<i> the server, for some users? I 'd like to achieve that for
+</I>&gt;<i> eg. OO.org Base. I know I can set up the user's client so
+</I>&gt;<i> that it automatically launches the selected program, but the
+</I>&gt;<i> user still could modify his client's settings to gain access
+</I>&gt;<i> to full desktop or run another program instead. I don't want
+</I>&gt;<i> those users to be able to run other apps or the full
+</I>&gt;<i> desktop, even if they edit their client settings.
+</I>&gt;<i> 
+</I>&gt;<i> Any hints more than welcome!
+</I>&gt;<i> 
+</I>&gt;<i> My server is Ubuntu Dapper/Gnome running freenx 0.7.1.
+</I>&gt;<i> Client is !M 3.0.0-89.
+</I>&gt;<i> 
+</I>&gt;<i> [1]<A HREF="http://developer.berlios.de/forum/message.php?msg_id=41233">http://developer.berlios.de/forum/message.php?msg_id=41233</A>
+</I>&gt;<i> 
+</I>&gt;<i> Maciek
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Freenx-devel mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/freenx-devel">Freenx-devel at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/freenx-devel">https://lists.berlios.de/mailman/listinfo/freenx-devel</A>
+</I>-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.7 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - <A HREF="http://enigmail.mozdev.org">http://enigmail.mozdev.org</A>
+
+iD8DBQFHYD47OOpxqcksWu4RChZFAJ9+AWyWuHjcSVPjdlvJXB+rTOdPawCfSRnJ
+yg4RnPR1WYurWMRsIOm6U10=
+=nrhC
+-----END PGP SIGNATURE-----
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000008.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+	<LI>Next message: <A HREF="000018.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] JJK: All patches applied
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20JJK%3A%20All%20patches%20applied&In-Reply-To=%3C18272.58965.687641.496185%40consult.pretender%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000012.html">
+   <LINK REL="Next"  HREF="000014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] JJK: All patches applied</H1>
+    <B>Jeffrey J. Kosowsky</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20JJK%3A%20All%20patches%20applied&In-Reply-To=%3C18272.58965.687641.496185%40consult.pretender%3E"
+       TITLE="[Freenx-devel] JJK: All patches applied">berlios at kosowsky.org
+       </A><BR>
+    <I>Thu Dec 13 08:59:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000012.html">[Freenx-devel] Two critical path/sourcing errors in printer/file sharing in freenx 0.7.1
+</A></li>
+        <LI>Next message: <A HREF="000014.html">[Freenx-devel] Question regarding usage of &quot;Download (CUPS)&quot;	option
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Forwarding this email to the list per Fabian's suggestion...
+Fabian Franz wrote at about 00:18:15 +0100 on Wednesday, November 21, 2007:
+ &gt; &gt; Fabian,
+ &gt; 
+ &gt; Hi,
+ &gt; 
+ &gt; &gt; I continue to play with freenx and fix bugs as they occur and as I
+ &gt; &gt; update my own Fedora system. I will send you my updated patches when
+ &gt; &gt; they are cleaned up if you are interested.
+ &gt; 
+ &gt; Sure. That is perfect.
+ &gt; 
+ &gt; &gt; One bug (at least on Fedora systems) is that the directive &quot;PidFile&quot;
+ &gt; &gt; in cupsd.conf doesn't seem to be recognized. The result is that the
+ &gt; &gt; daemon code that you use to launch cupsd doesn't record the pid and
+ &gt; &gt; then it can't later be killed. I'm not sure why &quot;PidFile&quot; is not
+ &gt; &gt; recognized but I tested it outside of NX by launching cupsd manually
+ &gt; &gt; and indeed it doesn't work (I am using Cups 1.3.3).
+ &gt; 
+ &gt; Yes PidFile is debian specific, but I didn't knew that.
+ &gt; 
+ &gt; Your fix is fine and I will commit a similar one with -f to SVN.
+ &gt; 
+ &gt; &gt; To get around this, I use the following patch:
+ &gt; &gt; #JJK:   $COMMAND_CUPSD -c &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf&quot;
+ &gt; &gt; &amp;&gt;/dev/null &lt;/dev/null
+ &gt; &gt;     $COMMAND_CUPSD -F -c &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf&quot;
+ &gt; &gt; &amp;&gt;/dev/null &lt;/dev/null &amp; NODE_CUPSD_PID=$! echo $NODE_CUPSD_PID
+ &gt; &gt; &gt;&quot;$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd&quot;
+ &gt; &gt;     NODE_CUPSD_PID=$!
+ &gt; &gt;     echo $NODE_CUPSD_PID &gt;&quot;$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd&quot;
+ &gt; &gt; 
+ &gt; &gt; A second problem I found is more challenging (to me).
+ &gt; 
+ &gt; Not only to you.
+ &gt; 
+ &gt; &gt; Based on our earlier discussion, I am using the directive
+ &gt; &gt; 	echo &quot;NX&gt; 709 File-sharing port: 445&quot;
+ &gt; &gt; to enable me to use mount.cifs/umount.cifs since smbmount is no longer
+ &gt; &gt; supported on my system.
+ &gt; &gt; This then sets up the ssh port forwarding: &lt;$display+3000&gt; --&gt; 445
+ &gt; &gt; So, far this makes file sharing work.
+ &gt; 
+ &gt; You can use FreENx 0.7.1 that has this directive and even has it configurable.
+ &gt; 
+ &gt; &gt; However, I now can't get print sharing working. Since the smb URL for
+ &gt; &gt; printing in 'nxnode' uses the same port while smb URL printing seems
+ &gt; &gt; to need to be forwarded to the old port 139 standard to work.
+ &gt; 
+ &gt; SMB printing won't need to be forwarded to port 139, but in SAMBA the port 445 is hardcoided to be used to switch printing to CIFS.
+ &gt; 
+ &gt; So there are two possbilities:
+ &gt; 
+ &gt; (1) - Patch samba to do a != 139 instead of ==445.
+ &gt; 
+ &gt; (or even better apply a different idea of the patch that NoMachine did to upstream. I had  been already in negotiations with Samba, but I forgot it again ...)
+ &gt; 
+ &gt; (2) - Or use my old work in <A HREF="http://svn.berlios.de/svnroot/repos/freenx/nx-utils/nxredir/.">http://svn.berlios.de/svnroot/repos/freenx/nx-utils/nxredir/.</A> to forward 445 to some port via LD_PRELOAD mechanism and let smbprint use it.
+ &gt; 
+ &gt; (I had also written some other mail in the last month regarding this issue)
+ &gt; 
+ &gt; At the moment I will go with (2) for the 0.7.2 release and with (1) for the long term.
+ &gt; 
+ &gt; cu
+ &gt; 
+ &gt; Fabian
+ &gt; 
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000012.html">[Freenx-devel] Two critical path/sourcing errors in printer/file sharing in freenx 0.7.1
+</A></li>
+	<LI>Next message: <A HREF="000014.html">[Freenx-devel] Question regarding usage of &quot;Download (CUPS)&quot;	option
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,77 @@
+From seb at esfnet.co.uk  Tue Sep 11 17:16:54 2007
+From: seb at esfnet.co.uk (Seb James)
+Date: Tue, 11 Sep 2007 16:16:54 +0100
+Subject: [Freenx-devel] An update to nxclientlib: nxcl
+Message-ID: <1189523814.14160.6.camel@circle.hypercube>
+
+Hi list,
+
+I just committed a first alpha (though working) version of nxcl.
+
+nxcl is an update to George Wright's nxclientlib.
+
+I wanted to remove the Qt dependency so that I could build a GTK+ NX
+client without the need to ship Qt as a dependency.
+
+nxcl gives you a library called libnxcl which you can link to with your
+application to build an NX client, and a binary called nxcl which is a
+self contained program which can negotiate an NX Connection. You can
+write a frontend application (To choose your connection and enter
+username/password) and communicate with nxcl using the dbus interface.
+
+There is a simple command line client in there, called nxcmd. nxcmd
+launches nxcl, then sends settings via dbus so that nxcl can negotiate
+the connection. It's in there as an example really. If someone wanted a
+complete command line NX client, it would be the easiest place to start
+from.
+
+I'll soon also be committing a GTK+ program called nxlaunch, but there
+is some tidying up to do there first.
+
+I tested nxcl with NoMachine's NX server version 3.0.0. I tried for a
+short while to make it work with freenx (which uses NX version 1.5.0
+libraries), but that didn't work out. This was a little strange, as
+George's code works with a 1.5.0 connection. Hopefully someone out there
+can modify the code to support connections to 1.5.0 servers. Ideally,
+I'd like a compile time check to determine the version of the nxssh and
+nxproxy program that are available on the target system and then
+preprocessor directives in the code to modify the behaviour where
+necessary... Or perhaps runtime checks, so that the user can update
+nxssh and nxproxy without needing to re-compile nxcl. That'd probably be
+better.
+
+Runtime dependencies are just glibc and libstdc++ for libnxcl and these
+plus libdbus-1 and a couple of X libraries for nxcl:
+
+[seb at circle 16:12:56 ~]$ ldd /usr/local/lib/libnxcl.so.1.0.0
+        linux-gate.so.1 =>  (0xffffe000)
+        libstdc++.so.6 => /usr/lib/gcc/i686-pc-linux-gnu/3.4.6/libstdc++.so.6 (0xb7e0f000)
+        libm.so.6 => /lib/tls/libm.so.6 (0xb7deb000)
+        libc.so.6 => /lib/tls/libc.so.6 (0xb7cc5000)
+        libgcc_s.so.1 => /usr/lib/gcc/i686-pc-linux-gnu/3.4.6/libgcc_s.so.1 (0xb7cbc000)
+        /lib/ld-linux.so.2 (0x80000000)
+
+[seb at circle 16:13:06 ~]$ ldd /usr/local/bin/nxcl
+        linux-gate.so.1 =>  (0xffffe000)
+        libdbus-1.so.3 => /usr/lib/libdbus-1.so.3 (0xb7eac000)
+        libnxcl.so.1 => /usr/local/lib/libnxcl.so.1 (0xb7e91000)
+        libstdc++.so.6 => /usr/lib/gcc/i686-pc-linux-gnu/3.4.6/libstdc++.so.6 (0xb7dc1000)
+        libX11.so.6 => /usr/lib/libX11.so.6 (0xb7cf5000)
+        libXau.so.6 => /usr/lib/libXau.so.6 (0xb7cf2000)
+        libXdmcp.so.6 => /usr/lib/libXdmcp.so.6 (0xb7cec000)
+        libdl.so.2 => /lib/libdl.so.2 (0xb7ce8000)
+        libm.so.6 => /lib/tls/libm.so.6 (0xb7cc4000)
+        libgcc_s.so.1 => /usr/lib/gcc/i686-pc-linux-gnu/3.4.6/libgcc_s.so.1 (0xb7cbb000)
+        libc.so.6 => /lib/tls/libc.so.6 (0xb7b95000)
+        /lib/ld-linux.so.2 (0xb7f03000)
+
+best regards,
+
+Seb James
+--
+Embedded Software Foundry Ltd.
+Tel: +44 (0)845 4580277
+
+
+
+

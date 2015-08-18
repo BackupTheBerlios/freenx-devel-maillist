@@ -1,0 +1,31 @@
+From iordan at cdf.toronto.edu  Mon Nov  2 23:11:23 2009
+From: iordan at cdf.toronto.edu (Iordan Iordanov)
+Date: Mon, 02 Nov 2009 17:11:23 -0500
+Subject: [Freenx-devel] [ Patch #2827 ] Allow switching to user before
+ sshing to server to send msgs
+Message-ID: <4AEF590B.2000001@cdf.toronto.edu>
+
+Hi,
+
+I noticed that in order to send or broadcast a message to NX sessions, 
+the nxserver commands attempts to do precisely that to the slave NX 
+server before running nxdialog to send the message to an NX session. If 
+one doesn't have passwordless ssh enabled for root, this will not work.
+
+I added a couple of options to nxserver to give the administrator the 
+option of switching to the user before attempting to ssh to the slave NX 
+server and running nxdialog. This allows organizations which have 
+passwordless ssh for ordinary users working to send and broadcast 
+messages even if passwordless ssh isn't allowed.
+
+I am attaching a patch to the current freenx, which adds the options. I 
+hope you find it useful and accept it into the code-base. I also posted 
+it on the Freenx's BerliOS website.
+
+Sincerely,
+Iordan Iordanov
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: nxserver_su_first_patch.out
+URL: <https://lists.berlios.de/pipermail/freenx-devel/attachments/20091102/af1a64d3/attachment.ksh>
+

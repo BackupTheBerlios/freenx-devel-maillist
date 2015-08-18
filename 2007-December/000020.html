@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] how to allow only selected programs via NX?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20how%20to%20allow%20only%20selected%20programs%20via%20NX%3F&In-Reply-To=%3C4777597B.2070106%40severinsson.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000019.html">
+   <LINK REL="Next"  HREF="000011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] how to allow only selected programs via NX?</H1>
+    <B>Jon Severinsson</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20how%20to%20allow%20only%20selected%20programs%20via%20NX%3F&In-Reply-To=%3C4777597B.2070106%40severinsson.net%3E"
+       TITLE="[Freenx-devel] how to allow only selected programs via NX?">jon at severinsson.net
+       </A><BR>
+    <I>Sun Dec 30 09:40:27 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000019.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+        <LI>Next message: <A HREF="000011.html">[Freenx-devel] JJK: All patches applied
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Well, there is the $NODE_AUTOSTART script that is run at login after the
+ requested application is started (or rather, the $NODE_AUTOSTART is
+asynchronously started by nxnode after the function that starts the
+application is asynchronously started by nxnode).
+
+I assume you could try to kill non-approved applications using that
+script. The application name isn't given to the script, but it's pid can
+be found in &quot;$USER_FAKE_HOME/.nx/C-$NXSESSIONID/pids/applications&quot;, and
+then you can use &quot;ps --no-headers -o command -p $PID&quot; to get the command
+name ($NXSESSIONID is exported to the script, $USER_FAKE_HOME isn't, but
+as it's you setting $USER_FAKE_HOME yourself in node.conf that's no
+problem).
+
+But please note that due to the asyncroneous nature of the calls by
+nxnode the pid-file has not necessarily been created when control is
+given to $NODE_AUTOSTART, so you might have to wait for it first, but if
+the application is real fast, it might complete it's run prior to you
+getting a chance to kill it, and if so the pid-file might have had time
+to be deleted already (and worse, the damage from running an
+unauthorized application is already done). Also note that if you set
+DEFAULT_X_WM to anything and KILL_DEFAULT_X_WM to 0, the client will
+still get the DEFAULT_X_WM (though not the application requested), as
+you can't kill it from within $NODE_AUTOSTART, as you have no way of
+knowing it's pid.
+
+I think that in your place I would have edited nxnode to add another
+script that is *synchronously* run *prior* to launching the application,
+and use it's return value to determine whether to launch the application
+in the first place.
+
+Regards
+Jonno
+
+Maciej Sieczka skrev:
+&gt;<i> A thought and a questions regarding my last notes. Please
+</I>&gt;<i> read below.
+</I>&gt;<i> 
+</I>&gt;<i> Maciej Sieczka wrote:
+</I>&gt;<i> 
+</I>&gt;&gt;&gt;<i> There is no way freenx could ever block a user runing any program it has
+</I>&gt;&gt;&gt;<i> possix permissions to execute. It would be possible (though not
+</I>&gt;&gt;&gt;<i> necessarily simple) to modify the freenx scripts so it will refuse the
+</I>&gt;&gt;&gt;<i> connection if given a blacklisted (or a non-whitelisted) executable to
+</I>&gt;&gt;&gt;<i> launch,
+</I>&gt;<i> 
+</I>&gt;&gt;<i> That's exactly something I was dreaming of.
+</I>&gt;<i> 
+</I>&gt;<i> Is there a shell script on the freenx server that each new
+</I>&gt;<i> session runs when it begins? If there was, I could myself
+</I>&gt;<i> hack it so that it would cancel the connection if the client
+</I>&gt;<i> was trying to start a program that I don't want it to.
+</I>&gt;<i> That'd be simple and effective, for me.
+</I>&gt;<i> 
+</I>&gt;<i> Maciek
+</I>-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.7 (GNU/Linux)
+Comment: Using GnuPG with Mozilla - <A HREF="http://enigmail.mozdev.org">http://enigmail.mozdev.org</A>
+
+iD8DBQFHd1l7OOpxqcksWu4RCsJKAJ9DDNZsJWVKLbBr2kGtFGXJ4hJAcACfejnT
+bzDr8yw+FkNcgPWDw3WXNjI=
+=GMWR
+-----END PGP SIGNATURE-----
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000019.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+	<LI>Next message: <A HREF="000011.html">[Freenx-devel] JJK: All patches applied
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#20">[ date ]</a>
+              <a href="thread.html#20">[ thread ]</a>
+              <a href="subject.html#20">[ subject ]</a>
+              <a href="author.html#20">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

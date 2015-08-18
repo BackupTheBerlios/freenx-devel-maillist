@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] how to allow only selected programs via NX?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20how%20to%20allow%20only%20selected%20programs%20via%20NX%3F&In-Reply-To=%3C47617091.9020100%40o2.pl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000010.html">
+   <LINK REL="Next"  HREF="000019.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] how to allow only selected programs via NX?</H1>
+    <B>Maciej Sieczka</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20how%20to%20allow%20only%20selected%20programs%20via%20NX%3F&In-Reply-To=%3C47617091.9020100%40o2.pl%3E"
+       TITLE="[Freenx-devel] how to allow only selected programs via NX?">tutey at o2.pl
+       </A><BR>
+    <I>Thu Dec 13 18:49:05 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000010.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+        <LI>Next message: <A HREF="000019.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jon
+
+Thanks for your reply. Please read below.
+
+Jon Severinsson wrote:
+&gt;<i> That would be done by standard possix permissions, not any freenx
+</I>&gt;<i> setting. Simply make sure the users in question does not have the
+</I>&gt;<i> execute bit set on any applications they are not supposed to run.
+</I>&gt;<i> (OK, it's perhaps not very simple, but it would still be the &quot;propper&quot;
+</I>&gt;<i> way to go).
+</I>
+Not really simple I guess.
+
+I have OO.org Base on the server, which remote NX users use
+to edit data in a PostgreSQL database on the server. So I'd
+propably need to find all executables and libraries that
+these two need; and the neccessary system core stuff, too.
+Then manage rights on all those files to make sure the NX
+users can't access them. Propably doable, but I would not
+know where to start.
+
+&gt;<i> There is no way freenx could ever block a user runing any program it has
+</I>&gt;<i> possix permissions to execute. It would be possible (though not
+</I>&gt;<i> necessarily simple) to modify the freenx scripts so it will refuse the
+</I>&gt;<i> connection if given a blacklisted (or a non-whitelisted) executable to
+</I>&gt;<i> launch,
+</I>
+That's exactly something I was dreaming of.
+
+&gt;<i> but there is no way for freenx to make sure an approved
+</I>&gt;<i> application doesn't in turn launch a unapproved application, which would
+</I>&gt;<i> make such a feature useless for security purposes.
+</I>
+This is not of a concern for NX though. NX would do it's job
+just fine, if it behaved like you describe it above - let
+the user run only the whitelisted executable, and no other.
+Whether the particular, whitelisted executable poses *it's
+own* security risk, is a separate issue IMO.
+
+Maciek
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000010.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+	<LI>Next message: <A HREF="000019.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

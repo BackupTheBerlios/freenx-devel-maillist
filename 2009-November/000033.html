@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] [ Patch #2827 ] Allow switching to user before sshing to server to send msgs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2009-November/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20%5B%20Patch%20%232827%20%5D%20Allow%20switching%20to%20user%20before%0A%20sshing%20to%20server%20to%20send%20msgs&In-Reply-To=%3C4AEF590B.2000001%40cdf.toronto.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] [ Patch #2827 ] Allow switching to user before sshing to server to send msgs</H1>
+    <B>Iordan Iordanov</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20%5B%20Patch%20%232827%20%5D%20Allow%20switching%20to%20user%20before%0A%20sshing%20to%20server%20to%20send%20msgs&In-Reply-To=%3C4AEF590B.2000001%40cdf.toronto.edu%3E"
+       TITLE="[Freenx-devel] [ Patch #2827 ] Allow switching to user before sshing to server to send msgs">iordan at cdf.toronto.edu
+       </A><BR>
+    <I>Mon Nov  2 23:11:23 CET 2009</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I noticed that in order to send or broadcast a message to NX sessions, 
+the nxserver commands attempts to do precisely that to the slave NX 
+server before running nxdialog to send the message to an NX session. If 
+one doesn't have passwordless ssh enabled for root, this will not work.
+
+I added a couple of options to nxserver to give the administrator the 
+option of switching to the user before attempting to ssh to the slave NX 
+server and running nxdialog. This allows organizations which have 
+passwordless ssh for ordinary users working to send and broadcast 
+messages even if passwordless ssh isn't allowed.
+
+I am attaching a patch to the current freenx, which adds the options. I 
+hope you find it useful and accept it into the code-base. I also posted 
+it on the Freenx's BerliOS website.
+
+Sincerely,
+Iordan Iordanov
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: nxserver_su_first_patch.out
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/freenx-devel/attachments/20091102/af1a64d3/attachment.ksh">https://lists.berlios.de/pipermail/freenx-devel/attachments/20091102/af1a64d3/attachment.ksh</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

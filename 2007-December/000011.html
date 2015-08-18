@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] JJK: All patches applied
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20JJK%3A%20All%20patches%20applied&In-Reply-To=%3C18272.58812.10859.500024%40consult.pretender%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000020.html">
+   <LINK REL="Next"  HREF="000012.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] JJK: All patches applied</H1>
+    <B>Jeffrey J. Kosowsky</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20JJK%3A%20All%20patches%20applied&In-Reply-To=%3C18272.58812.10859.500024%40consult.pretender%3E"
+       TITLE="[Freenx-devel] JJK: All patches applied">berlios at kosowsky.org
+       </A><BR>
+    <I>Thu Dec 13 08:56:44 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000020.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+        <LI>Next message: <A HREF="000012.html">[Freenx-devel] Two critical path/sourcing errors in printer/file sharing in freenx 0.7.1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Forwarding this to the list per Fabian's suggestion...
+Jeffrey J. Kosowsky wrote at about 23:32:00 -0500 on Saturday, December 8, 2007:
+ &gt; Fabian,
+ &gt; Version 0.7.1 has finally made into Fedora 8 and I am glad to see that
+ &gt; the patches I suggested (along with many other improvements added by
+ &gt; you) have been included.
+ &gt; 
+ &gt; Here are several more bug fixes/improvements that you might want to
+ &gt; consider adding to nxnode. 
+ &gt; 
+ &gt; First, when a share is mounted, a new subdirectory is created
+ &gt; ($mpoint). I believe that this directory should also be removed when
+ &gt; the share is unmounted or else you end up with a lot of old stale
+ &gt; mount points.
+ &gt; 
+ &gt; My suggested change (as indicated by my initials JJK) just adds one
+ &gt; line to nod_umount_smb():
+ &gt; 
+ &gt; node_umount_smb()
+ &gt; {
+ &gt; 	[ -e &quot;$USER_FAKE_HOME/.nx/C-$sess_id/scripts/mpoint&quot; ] || return
+ &gt; 	cat &quot;$USER_FAKE_HOME/.nx/C-$sess_id/scripts/mpoint&quot; | while read mpoint
+ &gt; 	do
+ &gt; 		$COMMAND_SMBUMOUNT &quot;$mpoint&quot; &gt;/dev/null 2&gt;/dev/null
+ &gt; 		rmdir &quot;$mpoint&quot; &gt;/dev/null 2&gt;/dev/null #JJK remove mount point if empty
+ &gt; 	done
+ &gt; }
+ &gt; 
+ &gt; Note that the directory is only removed if empty.
+ &gt; 
+ &gt; Second, on my system the sharename returned by &quot;getparam dir&quot; begins
+ &gt; with &quot;%24&quot; and not &quot;$&quot; (note that %24 is the ASCII encoding of $).
+ &gt; So I changed the line:
+ &gt;     dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
+ &gt; To:
+ &gt; 	dir=$(getparam dir | sed 's/\(%24\|\$\)(SHARES)/MyShares/g')
+ &gt; 
+ &gt; Also, note that using &quot;|&quot; as a separator in (gnu) sed is no longer
+ &gt; recommended since it creates ambiguity with the 'or' operator
+ &gt; 
+ &gt; Third, I made several changes to the cupsd.conf file that is
+ &gt; generated in nxnode.conf that you may (or may not) want to
+ &gt; include. The changes are as follows:
+ &gt; 
+ &gt; 1. Placed all the log files in a subdirectory of
+ &gt;    $USR_FAKE_HOME/.nx/C-$sess_id/cups 
+ &gt;    I also added back in access_log
+ &gt;    This adds clarity and is consistent with how all the log files in
+ &gt;    cups are usually put together.
+ &gt; 
+ &gt;    AccessLog log/access_log
+ &gt;    ErrorLog log/error_log
+ &gt;    PageLog log/page_log
+ &gt; 
+ &gt; 2. I believe that you are using &quot;Listen $NODE_CUPSD_SOCKET&quot; for
+ &gt;    security. However, when I do this, then I cannot use the CUPS web
+ &gt;    interface to manage the printers since there is no port to point my
+ &gt;    web browser at (correct me if there is a way). Also, it may be nice
+ &gt;    to allow other users to access the remote printers at least at some
+ &gt;    non-privileged level.
+ &gt; 
+ &gt;    So, I also open up listening on $NODE_CUPSD_PORT and then use a
+ &gt;    more buttoned-down version of permissions to restore some
+ &gt;    security. Basically, I copied the security permissions that the
+ &gt;    regular default cupsd.conf setup uses on my Fedora system. So, in the
+ &gt;    end I am trading off perhaps a little security for more convenient
+ &gt;    access to and management of the printers.
+ &gt; 
+ &gt;    Specifically, I make the following additional changes to the
+ &gt;    generated cupsd.conf file [Note the first and last stanza of the
+ &gt;    restrictions are unchanged except for added comments]
+ &gt; 
+ &gt; SystemGroup sys root $USER
+ &gt; Listen localhost: $NODE_CUPSD_PORT
+ &gt; 
+ &gt; #JJK:  Restrict access to the server...
+ &gt; &lt;Location /&gt;
+ &gt; Order Deny,Allow
+ &gt; Deny From All
+ &gt; Allow from 127.0.0.1
+ &gt; &lt;/Location&gt;
+ &gt; 
+ &gt; #JJK: Restrict access to the admin pages...
+ &gt; &lt;Location /admin&gt;
+ &gt;   Encryption Required
+ &gt;   Order allow,deny
+ &gt;   Allow localhost
+ &gt; &lt;/Location&gt;
+ &gt; 
+ &gt; #JJK: Restrict access to configuration files...
+ &gt; &lt;Location /admin/conf&gt;
+ &gt;   AuthType Basic
+ &gt;   Require user @SYSTEM
+ &gt;   Order allow,deny
+ &gt;   Allow localhost
+ &gt; &lt;/Location&gt;
+ &gt; 
+ &gt; #JJK: Since also allowing access via $NODE_CUPSD_PORT, need to add protection
+ &gt; &lt;Policy default&gt;
+ &gt;   #JJK: Job-related operations must be done by the owner or an adminstrator...
+ &gt;   &lt;Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job CUPS-Move-Job&gt;
+ &gt;     Require user @OWNER @SYSTEM
+ &gt;     Order deny,allow
+ &gt;   &lt;/Limit&gt;
+ &gt; 
+ &gt;   #JJK:All administration operations require an adminstrator to authenticate...
+ &gt;   &lt;Limit Pause-Printer Resume-Printer Set-Printer-Attributes Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After CUPS-Add-Class CUPS-Delete-Class CUPS-Accept-Jobs CUPS-Reject-Jobs&gt;
+ &gt;     AuthType Basic
+ &gt;     Require user @SYSTEM
+ &gt;     Order deny,allow
+ &gt;   &lt;/Limit&gt;
+ &gt; 
+ &gt;   #JJK: Except need to allow these for nxnode to work
+ &gt;   &lt;Limit CUPS-Add-Printer CUPS-Delete-Printer CUPS-Set-Default&gt;
+ &gt;     Order deny,allow
+ &gt;   &lt;/Limit&gt;
+ &gt; 
+ &gt;   # Only the owner or an administrator can cancel or authenticate a job...
+ &gt;   &lt;Limit Cancel-Job CUPS-Authenticate-Job&gt;
+ &gt;     Require user @OWNER @SYSTEM
+ &gt;     Order deny,allow
+ &gt;   &lt;/Limit&gt;
+ &gt; 
+ &gt; # JJK: Allow everything else...
+ &gt;   &lt;Limit All&gt;
+ &gt;     AuthType None
+ &gt;     Order deny,allow
+ &gt;   &lt;/Limit&gt;
+ &gt; &lt;/Policy&gt;
+ &gt; 
+ &gt; 	3. I like to also allow 'guest' so you can do things like print
+ &gt; 	   testpages from the CUPS web interface. Note this is required
+ &gt; 	   even for the original user to print test pages from the CUPS
+ &gt; 	   web interface
+ &gt; 	   
+ &gt; 	   To do this, change:
+ &gt; 		  PUBLIC=&quot;-u allow:$USER&quot;
+ &gt; 	   To:
+ &gt; 		  PUBLIC=&quot;-u allow:$USER,guest&quot;
+ &gt; 
+ &gt; Fabian Franz wrote at about 00:18:15 +0100 on Wednesday, November 21, 2007:
+ &gt;  &gt; &gt; Fabian,
+ &gt;  &gt; 
+ &gt;  &gt; Hi,
+ &gt;  &gt; 
+ &gt;  &gt; &gt; I continue to play with freenx and fix bugs as they occur and as I
+ &gt;  &gt; &gt; update my own Fedora system. I will send you my updated patches when
+ &gt;  &gt; &gt; they are cleaned up if you are interested.
+ &gt;  &gt; 
+ &gt;  &gt; Sure. That is perfect.
+ &gt;  &gt; 
+ &gt;  &gt; &gt; One bug (at least on Fedora systems) is that the directive &quot;PidFile&quot;
+ &gt;  &gt; &gt; in cupsd.conf doesn't seem to be recognized. The result is that the
+ &gt;  &gt; &gt; daemon code that you use to launch cupsd doesn't record the pid and
+ &gt;  &gt; &gt; then it can't later be killed. I'm not sure why &quot;PidFile&quot; is not
+ &gt;  &gt; &gt; recognized but I tested it outside of NX by launching cupsd manually
+ &gt;  &gt; &gt; and indeed it doesn't work (I am using Cups 1.3.3).
+ &gt;  &gt; 
+ &gt;  &gt; Yes PidFile is debian specific, but I didn't knew that.
+ &gt;  &gt; 
+ &gt;  &gt; Your fix is fine and I will commit a similar one with -f to SVN.
+ &gt;  &gt; 
+ &gt;  &gt; &gt; To get around this, I use the following patch:
+ &gt;  &gt; &gt; #JJK:   $COMMAND_CUPSD -c &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf&quot;
+ &gt;  &gt; &gt; &amp;&gt;/dev/null &lt;/dev/null
+ &gt;  &gt; &gt;     $COMMAND_CUPSD -F -c &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf&quot;
+ &gt;  &gt; &gt; &amp;&gt;/dev/null &lt;/dev/null &amp; NODE_CUPSD_PID=$! echo $NODE_CUPSD_PID
+ &gt;  &gt; &gt; &gt;&quot;$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd&quot;
+ &gt;  &gt; &gt;     NODE_CUPSD_PID=$!
+ &gt;  &gt; &gt;     echo $NODE_CUPSD_PID &gt;&quot;$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd&quot;
+ &gt;  &gt; &gt; 
+ &gt;  &gt; &gt; A second problem I found is more challenging (to me).
+ &gt;  &gt; 
+ &gt;  &gt; Not only to you.
+ &gt;  &gt; 
+ &gt;  &gt; &gt; Based on our earlier discussion, I am using the directive
+ &gt;  &gt; &gt; 	echo &quot;NX&gt; 709 File-sharing port: 445&quot;
+ &gt;  &gt; &gt; to enable me to use mount.cifs/umount.cifs since smbmount is no longer
+ &gt;  &gt; &gt; supported on my system.
+ &gt;  &gt; &gt; This then sets up the ssh port forwarding: &lt;$display+3000&gt; --&gt; 445
+ &gt;  &gt; &gt; So, far this makes file sharing work.
+ &gt;  &gt; 
+ &gt;  &gt; You can use FreENx 0.7.1 that has this directive and even has it configurable.
+ &gt;  &gt; 
+ &gt;  &gt; &gt; However, I now can't get print sharing working. Since the smb URL for
+ &gt;  &gt; &gt; printing in 'nxnode' uses the same port while smb URL printing seems
+ &gt;  &gt; &gt; to need to be forwarded to the old port 139 standard to work.
+ &gt;  &gt; 
+ &gt;  &gt; SMB printing won't need to be forwarded to port 139, but in SAMBA the port 445 is hardcoided to be used to switch printing to CIFS.
+ &gt;  &gt; 
+ &gt;  &gt; So there are two possbilities:
+ &gt;  &gt; 
+ &gt;  &gt; (1) - Patch samba to do a != 139 instead of ==445.
+ &gt;  &gt; 
+ &gt;  &gt; (or even better apply a different idea of the patch that NoMachine did to upstream. I had  been already in negotiations with Samba, but I forgot it again ...)
+ &gt;  &gt; 
+ &gt;  &gt; (2) - Or use my old work in <A HREF="http://svn.berlios.de/svnroot/repos/freenx/nx-utils/nxredir/.">http://svn.berlios.de/svnroot/repos/freenx/nx-utils/nxredir/.</A> to forward 445 to some port via LD_PRELOAD mechanism and let smbprint use it.
+ &gt;  &gt; 
+ &gt;  &gt; (I had also written some other mail in the last month regarding this issue)
+ &gt;  &gt; 
+ &gt;  &gt; At the moment I will go with (2) for the 0.7.2 release and with (1) for the long term.
+ &gt;  &gt; 
+ &gt;  &gt; cu
+ &gt;  &gt; 
+ &gt;  &gt; Fabian
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000020.html">[Freenx-devel] how to allow only selected programs via NX?
+</A></li>
+	<LI>Next message: <A HREF="000012.html">[Freenx-devel] Two critical path/sourcing errors in printer/file sharing in freenx 0.7.1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

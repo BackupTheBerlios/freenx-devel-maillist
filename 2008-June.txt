@@ -1,0 +1,56 @@
+From dmilisic at desktopecho.com  Thu Jun 19 19:26:04 2008
+From: dmilisic at desktopecho.com (Daniel Milisic)
+Date: Thu, 19 Jun 2008 14:26:04 -0300
+Subject: [Freenx-devel] VMware Virtual Appliance based on FreeNX
+Message-ID: <1c4a03440806191026n61c3c25aj5822665fe8a94b19@mail.gmail.com>
+
+Hello all,
+
+First of all, many thanks to the FreeNX Team and NoMachine for
+developing this amazing technology!
+
+This is my attempt to make NX easy; take it for a spin and let me know
+how it works.
+
+The iMKS Virtual Appliance
+http://DesktopECHO.com/iMKS
+
+Bullet Points:
+
+- 500MB (7-Zip) VMware Virtual Appliance
+- Centos 5.1 Foundation
+- FreeNX 0.7.2, and NX 3.2 Libraries, configured/ready on first-run.
+(HughesJr EL5 Packages)
+- XFCE 'rootless' operating environment.  GNOME 2.22 and KDE 3 are
+also ready to go if you prefer a windowed environemnt.
+
+Instructions:
+
+- Download/Deploy iMKS
+- First run will generate new SSH host keys and unique FreeNX client.id_dsa.key
+- Prompt for root password
+- Prompt for user account details
+- Connection file (iMKS.nxs and iMKS-ZeroConf.nxs) gets generated and
+put aside for the Clients
+
+iMKS is ready to go!
+Now on to the Client:
+
+- If you don't have ZeroConf/Bonjour on your Client, install Bonjour
+for Windows (Or use iMKS's DHCP IP instead of "iMKS.local")
+- Go to http://iMKS.local and follow the link to install NX Client for
+your platform.
+- Once NX Client is installed, go to http://iMKS.local/private
+(User:imks / Pass:imks) - Get the connection files and keep them in a
+safe place.
+- If you use iMKS-ZeroConf.nxs, open it with NX Client - Enter your
+credentials, Done - You're in!
+- iMKS.nxs is also supplied for those without ZeroConf/Bonjour or those
+  planning to use iMKS in the perimeter (Port 443 by default)
+  Open it with NX Client - Enter your credentials, Enter IP/DNS
+Address, Done - You're in!
+
+Thanks for sharing the knowledge, enjoy!
+D.
+
+

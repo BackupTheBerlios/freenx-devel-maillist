@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] User nx not allowed because account is User nx not	allowed because account is locked
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20User%20nx%20not%20allowed%20because%20account%20is%20User%20nx%20not%0A%09allowed%20because%20account%20is%20locked&In-Reply-To=%3C389c43e40706032226j28eecfadi1691d7d0f0da7c95%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] User nx not allowed because account is User nx not	allowed because account is locked</H1>
+    <B>Mark Van De Vyver</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20User%20nx%20not%20allowed%20because%20account%20is%20User%20nx%20not%0A%09allowed%20because%20account%20is%20locked&In-Reply-To=%3C389c43e40706032226j28eecfadi1691d7d0f0da7c95%40mail.gmail.com%3E"
+       TITLE="[Freenx-devel] User nx not allowed because account is User nx not	allowed because account is locked">mvyver at gmail.com
+       </A><BR>
+    <I>Mon Jun  4 07:26:23 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000003.html">[Freenx-devel] Bug: negotiating link parameters -&gt; timeout ON	resume session. v.0.6.0/2.1.0-17
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+Thank you for all the effort that has gone into FreeNX, and for making
+your work freely available!
+
+Essentially the FreeNX the install failed due to the nx user being
+locked.  I'm not sure if this is peculiar to my setup. but I worked
+around this by running 'sudo passwd -d nx' after running nxsetup.
+
+The following are some datails.
+
+I had sshd working.
+
+I tried installing FreeNX-0.6.0-25.1 uaing openSuSE 10.2:
+mv-laptop:~ # uname -a
+Linux mv-laptop 2.6.18.8-0.3-default #1 SMP Tue Apr 17 08:42:35 UTC
+2007 i686 i686 i386 GNU/Linux
+
+The install command was:
+
+nxsetup --install --setup-nomachine-key --clean --purge
+
+Console output showed:
+
+&lt;snip&gt;
+----&gt; Testing your nxserver connection ...
+Permission denied (publickey,keyboard-interactive).
+Fatal error: Could not connect to NX Server.
+&lt;snip&gt;
+
+In /var/log/messages I see:
+
+&lt;snip&gt;
+Jun 3 11:59:10 mv-laptop sshd[20736]: debug1: Local version string
+SSH-2.0-OpenSSH_4.4
+Jun 3 11:59:10 mv-laptop sshd[20736]: User nx not allowed because account is
+locked
+Jun 3 11:59:10 mv-laptop sshd[20736]: debug1: do_cleanup
+&lt;snip&gt;
+
+Eventually I was able to work around this by running
+
+sudo passwd -d nx
+
+
+I hope this helps someone else?
+Regards
+Mark
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000003.html">[Freenx-devel] Bug: negotiating link parameters -&gt; timeout ON	resume session. v.0.6.0/2.1.0-17
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

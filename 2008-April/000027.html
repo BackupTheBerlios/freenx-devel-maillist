@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] login problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20login%20problems&In-Reply-To=%3C20080407094025.9F2D2D2AC8%40smtp.l00-bugdead-prods.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000028.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] login problems</H1>
+    <B>Sebastian Reitenbach</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20login%20problems&In-Reply-To=%3C20080407094025.9F2D2D2AC8%40smtp.l00-bugdead-prods.de%3E"
+       TITLE="[Freenx-devel] login problems">sebastia at l00-bugdead-prods.de
+       </A><BR>
+    <I>Mon Apr  7 11:40:25 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000028.html">[Freenx-devel] login problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#27">[ date ]</a>
+              <a href="thread.html#27">[ thread ]</a>
+              <a href="subject.html#27">[ subject ]</a>
+              <a href="author.html#27">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I hope it is the right list to aks the question. 
+I had some troubles, users logging in. When they tried, I saw this in the 
+logfile:
+
+NX&gt; 105 login
+NX&gt; 101 User: user
+NX&gt; 102 Password:
+Info: Auth method: passdb ssh
+NX&gt; 103 Welcome to: tserver user: user
+NX&gt; 105 
+startsession --session=&quot;TSERVER&quot;  --link=&quot;lan&quot; --geometry=&quot;1024x768+0+0&quot;
+--type=&quot;unix-kde&quot; --screeninfo=&quot;1280x1024x16+render&quot; --cookie=&quot;******&quot;
+
+Warning: Stray nxagent without .X31003-lock found on port 37003.
+Warning: Stray nxagent without .X31010-lock found on port 37010.
+Warning: Stray nxagent without .X31015-lock found on port 37015.
+&amp;session=TSERVER&amp;link=lan&amp;geometry=1024x768+0+0&amp;type=unix-kde&amp;screeninfo=1280x1024x16+render&amp;cookie=******&amp;clientproto=1.5.0&amp;user=user&amp;userip=10.0.0.31&amp;uniqueid=53494A0DD6109CF3BCC168D3A5981161&amp;display=31018&amp;host=127.0.0.1
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/freenx-devel">user at 127.0.0.1</A>'s password:
+NX&gt; 1000 NXNODE - Version 1.5.0-70 OS (GPL)
+server_nxnode_echo: NX&gt; 1000 NXNODE - Version 1.5.0-70 OS (GPL)
+NX&gt; 700 Session id: tserver-31018-53494A0DD6109CF3BCC168D3A5981161
+NX&gt; 705 Session display: 31018
+NX&gt; 703 Session type: unix-kde
+NX&gt; 701 Proxy cookie: da4973bd3f1530ac2df6e6a5da7d4b7a
+NX&gt; 702 Proxy IP: 10.0.0.31
+NX&gt; 706 Agent cookie: da4973bd3f1530ac2df6e6a5da7d4b7a
+NX&gt; 704 Session cache: unix-kde
+NX&gt; 707 SSL tunneling: 0
+server_nxnode_echo: NX&gt; 700 Session id: 
+tserver-31018-53494A0DD6109CF3BCC168D3A5981161
+server_nxnode_echo: NX&gt; 705 Session display: 31018
+server_nxnode_echo: NX&gt; 703 Session type: unix-kde
+server_nxnode_echo: NX&gt; 701 Proxy cookie: da4973bd3f1530ac2df6e6a5da7d4b7a
+server_nxnode_echo: NX&gt; 702 Proxy IP: 10.0.0.31
+server_nxnode_echo: NX&gt; 706 Agent cookie: da4973bd3f1530ac2df6e6a5da7d4b7a
+server_nxnode_echo: NX&gt; 704 Session cache: unix-kde
+server_nxnode_echo: NX&gt; 707 SSL tunneling: 0
+NX&gt; 1004 Error: NX Agent exited with exit status 1. To troubleshoot set 
+SESSION_LOG_CLEAN=0 in node.conf and 
+investigate
+&quot;/tmp/user-nx/.nx/F-C-tserver-31018-53494A0DD6109CF3BCC168D3A5981161/session&quot;. 
+You might also want to try: ssh -X myserver; /usr/bin/nxnode --agent to test 
+the basic functionality. Session log follows:
+_XSERVTransSocketINETCreateListener: ...SocketCreateListener() failed
+_XSERVTransMakeAllCOTSServerListeners: server already running
+
+Fatal server error:
+Cannot establish any listening sockets - Make sure an X server isn't already 
+running
+NX&gt; 105 NX&gt; 1006 Session status: closed
+server_nxnode_echo: NX&gt; 596 Session startup failed.
+NX&gt; 596 Session startup failed.
+server_nxnode_echo: NX&gt; 1004 Error: NX Agent exited with exit status 1. To 
+troubleshoot set SESSION_LOG_CLEAN=0 in node.conf and 
+investigate
+&quot;/tmp/user-nx/.nx/F-C-tserver-31018-53494A0DD6109CF3BCC168D3A5981161/session&quot;. 
+You might also want to try: ssh -X myserver; /usr/bin/nxnode --agent to test 
+the basic functionality. Session log follows:
+session_close 53494A0DD6109CF3BCC168D3A5981161
+server_nxnode_echo: NX&gt; 1006 Session status: closed
+
+It does not matter, which user tries to login. I figured out, when I try to 
+login, twice, in a very short time frame, then the second try will succeed.
+
+I think the problem is because of the next free port for the 
+nx-session: &quot;Session display: 31018&quot;. Well, the port is not in use 
+(netstat -natup), also there are not /tmp/user-nx/.nx (the .nx dir usually 
+from the home directory), nor a /tmp/.X31018-lock nor 
+a /tmp/.X11-unix/X31018 file.
+
+I'm just wondering what could have caused the problem, and how to eliminate 
+it easily next time. I did not run nxserver --cleanup because I assumed the 
+already logged in users are thrown out.
+
+kind regards
+Sebastian
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000028.html">[Freenx-devel] login problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#27">[ date ]</a>
+              <a href="thread.html#27">[ thread ]</a>
+              <a href="subject.html#27">[ subject ]</a>
+              <a href="author.html#27">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,42 @@
+From narender.hooda at gmail.com  Tue Jun 30 10:12:47 2009
+From: narender.hooda at gmail.com (Hakuna Matata)
+Date: Tue, 30 Jun 2009 13:42:47 +0530
+Subject: [Freenx-devel] Linux + LDAP + FreeNX (FreeNX Authentication with
+	Fedora Directory Services)
+Message-ID: <253e13910906300112x56ab0201o959fa56521a7750a@mail.gmail.com>
+
+Hi Guys,
+
+i want create multiple profile on a single linux machine(server class)
+so that multiple users can access the it (GUI ) from their client
+machines.
+
+Server OS is CentOS 5.3
+
+For centralize  authentication i am using Fedora directory Services
+
+I also have FreeNX server installed on the Linux Server and FreeNX
+client on the windows machines. (for terminal server like
+functionality)
+https://help.ubuntu.com/community/FreeNX
+
+while goggling i got the the below article for creating multiple
+profile in linux
+http://www.linux.com/archive/feature/114319
+
+
+Now the situation is that my FreeNX client is not able to authenticate
+via my Ldap/FDS Server.
+
+
+I need help how FreeNX authenticate Via Fedora Directory Services.
+
+Could someone suggest some better idea for achieving this.
+
+
+
+
+Best Regards
+H
+
+

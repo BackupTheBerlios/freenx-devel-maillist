@@ -1,0 +1,369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] Cumulative patches against 0.7.1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20Cumulative%20patches%20against%200.7.1&In-Reply-To=%3C18297.14625.332481.517119%40consult.pretender%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000024.html">
+   <LINK REL="Next"  HREF="000022.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] Cumulative patches against 0.7.1</H1>
+    <B>Jeffrey J. Kosowsky</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20Cumulative%20patches%20against%200.7.1&In-Reply-To=%3C18297.14625.332481.517119%40consult.pretender%3E"
+       TITLE="[Freenx-devel] Cumulative patches against 0.7.1">berlios at kosowsky.org
+       </A><BR>
+    <I>Mon Dec 31 19:46:57 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000024.html">[Freenx-devel] Cumulative patches against 0.7.1
+</A></li>
+        <LI>Next message: <A HREF="000022.html">[Freenx-devel] Desktop applets all crash on startup
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Here is a slightly updated patch set that fixes a couple of the
+variables in nxloadconfig to work better with Fedora (and probably
+also some other distros)
+
+--------------------------------------------------------------------------
+
+diff -ruw nx/nxloadconfig nx.new/nxloadconfig
+--- nx/nxloadconfig	2007-12-31 13:08:22.000000000 -0500
++++ nx.new/nxloadconfig	2007-12-31 13:31:26.000000000 -0500
+@@ -101,11 +101,28 @@
+ 
+ # Restriction directives
+ 
+-DISPLAY_BASE=1000
++#JJK: DISPLAY_BASE=1000
++#JJK: Change DISPLAY_BASE to 2000 to avoid conflict of DISPLAY_BASE+7000 with nasd
++DISPLAY_BASE=2000
+ SESSION_LIMIT=200
+ SESSION_USER_LIMIT=&quot;&quot; #Calculated
+ DISPLAY_LIMIT=200
+ 
++#JJK: Added the following to allow printing when using cifs mount
++#JJK: Note the smb print port (#139) must then be tunnelled manually
++#JJK: from &lt;DISPLAY+3000+SMBPORT_OFFSET&gt; on the server to port 139 on the host
++#JJK: by running on the client: 
++#JJK:   ssh ... -R &lt;DISPLAY+3000+SMBPORT_OFFSET&gt;:&lt;client name&gt;:139
++#JJK: If SAMBA_MOUNT_SHARE_PROTOCOL=&quot;smbfs&quot; (technically, if it doesn't equal
++#JJK  'cifs' or in most cases 'both') then the ssh tunnel is automatically
++#JJK: set up from port &lt;DISPLAY+3000&gt; on the server to port 139 
++#JJK: on the remote client.
++#JJK: Note in *all* cases, the cups printer on the client is accessed from 
++#JJK: the server via the command line, using the following -h flag:
++#JJK:   -h localhost:&lt;DISPLAY+9000&gt; [-P &lt;printer name&gt;]
++#JJK: or via the CUPS web browser using:
++#JJK:   <A HREF="http://localhost:&lt;DISPLAY+9000">http://localhost:&lt;DISPLAY+9000</A>&gt;
++SMBPORT_OFFSET=8000
+ ENABLE_PERSISTENT_SESSION=&quot;all&quot;
+ DISABLE_PERSISTENT_SESSION=&quot;&quot;
+ 
+@@ -154,7 +171,11 @@
+ ENABLE_CUPS_SEAMLESS=&quot;0&quot;
+ CUPS_SEAMLESS_DELAY=&quot;10&quot;
+ ENABLE_FOOMATIC=&quot;1&quot;
+-COMMAND_FOOMATIC=&quot;/usr/lib/cups/driver/foomatic-ppdfile&quot;
++#JJK: COMMAND_FOOMATIC=&quot;/usr/lib/cups/driver/foomatic-ppdfile&quot;
++COMMAND_FOOMATIC=&quot;foomatic-ppdfile&quot;
++
++#JJK: added the following path referenced in nxprint
++PPD_DIR=&quot;/usr/share/cups/model&quot; #JJK: Note /usr/share/ppd on some systems
+ 
+ CUPS_BACKEND=&quot;/usr/lib/cups/backend&quot;
+ CUPS_IPP_BACKEND=&quot;$CUPS_BACKEND/nxipp&quot;
+@@ -171,12 +192,14 @@
+ DEFAULT_X_WM=&quot;&quot;
+ KILL_DEFAULT_X_WM=&quot;1&quot;
+ USER_X_STARTUP_SCRIPT=.Xclients
+-DEFAULT_X_SESSION=/etc/X11/xdm/Xsession
++#JJK: DEFAULT_X_SESSION=/etc/X11/xdm/Xsession
++DEFAULT_X_SESSION=/etc/X11/xinit/Xsession
+ COMMAND_START_KDE=startkde
+ COMMAND_START_GNOME=gnome-session
+ COMMAND_START_CDE=cdwm
+ COMMAND_XTERM=xterm
+-COMMAND_XAUTH=/usr/X11R6/bin/xauth
++#JJK: COMMAND_XAUTH=/usr/X11R6/bin/xauth
++COMMAND_XAUTH=xauth
+ COMMAND_SMBMOUNT=smbmount
+ COMMAND_SMBUMOUNT=smbumount
+ COMMAND_SMBMOUNT_CIFS=/sbin/mount.cifs
+@@ -189,7 +212,8 @@
+ COMMAND_PERL=perl
+ COMMAND_RDESKTOP=&quot;rdesktop&quot;
+ COMMAND_VNCVIEWER=&quot;vncviewer&quot;
+-COMMAND_VNCPASSWD=&quot;$PATH_BIN/nxpasswd&quot;
++#JJK: COMMAND_VNCPASSWD=&quot;$PATH_BIN/nxpasswd&quot;
++COMMAND_VNCPASSWD=&quot;vncpasswd&quot;
+ COMMAND_X11VNC=&quot;x11vnc&quot;
+ 
+ # Misc directives
+@@ -297,7 +321,8 @@
+ [ -z &quot;$AGENT_LIBRARY_PATH&quot; ] &amp;&amp; AGENT_LIBRARY_PATH=$PATH_LIB
+ [ -z &quot;$PROXY_LIBRARY_PATH&quot; ] &amp;&amp; PROXY_LIBRARY_PATH=$PATH_LIB
+ [ -z &quot;$APPLICATION_LIBRARY_PATH&quot; ] &amp;&amp; APPLICATION_LIBRARY_PATH=$PATH_LIB
+-[ -z &quot;$APPLICATION_LIBRARY_PRELOAD&quot; ] &amp;&amp; APPLICATION_LIBRARY_PRELOAD=&quot;$APPLICATION_LIBRARY_PATH/libX11.so.6.2:$APPLICATION_LIBRARY_PATH/libXext.so.6.4:$APPLICATION_LIBRARY_PATH/libXcomp.so:$APPLICATION_LIBRARY_PATH/libXcompext.so:$APPLICATION_LIBRARY_PATH/libXrender.so.1.2&quot;
++#JJK: [ -z &quot;$APPLICATION_LIBRARY_PRELOAD&quot; ] &amp;&amp; APPLICATION_LIBRARY_PRELOAD=&quot;$APPLICATION_LIBRARY_PATH/libX11.so.6.2:$APPLICATION_LIBRARY_PATH/libXext.so.6.4:$APPLICATION_LIBRARY_PATH/libXcomp.so:$APPLICATION_LIBRARY_PATH/libXcompext.so:$APPLICATION_LIBRARY_PATH/libXrender.so.1.2&quot;
++[ -z &quot;$APPLICATION_LIBRARY_PRELOAD&quot; ] &amp;&amp; APPLICATION_LIBRARY_PRELOAD=&quot;$APPLICATION_LIBRARY_PATH/libX11.so.6.2:$APPLICATION_LIBRARY_PATH/libXext.so.6.4:$APPLICATION_LIBRARY_PATH/libXcomp.so.2:$APPLICATION_LIBRARY_PATH/libXcompext.so.2:$APPLICATION_LIBRARY_PATH/libXrender.so.1.2&quot;
+ if [ -z &quot;$ENABLE_2_0_0_BACKEND&quot; ]
+ then
+ 	ENABLE_2_0_0_BACKEND=&quot;1&quot;
+diff -ruw nx/nxnode nx.new/nxnode
+--- nx/nxnode	2007-12-31 13:08:22.000000000 -0500
++++ nx.new/nxnode	2007-12-31 13:31:26.000000000 -0500
+@@ -20,6 +20,20 @@
+ # Read the config file
+ . $(PATH=$(cd $(dirname $0) &amp;&amp; pwd):$PATH which nxloadconfig) --userconf
+ 
++#JJK: Added	following 'if' stanza as a kluge since the following variables
++#JJK: need to be set in cmd_node_smbmount node_umount_smb 
++#JJK: but they are currently set only in startsession which is called 
++#JJK: separately from nxserver via ssh so environment variables 
++#JJK: aren't preserved.
++if [[ &quot;$SAMBA_MOUNT_SHARE_PROTOCOL&quot; = &quot;cifs&quot; || \
++	 ( &quot;$SAMBA_MOUNT_SHARE_PROTOCOL&quot; = &quot;both&quot; &amp;&amp; \
++	  `which &quot;$COMMAND_SMBMOUNT_CIFS&quot;` &amp;&amp; `which &quot;$COMMAND_SMBUMOUNT_CIFS&quot;` ) \
++			]] &gt; /dev/null 2&gt;&amp;1; then
++	COMMAND_SMBMOUNT=$COMMAND_SMBMOUNT_CIFS
++	COMMAND_SMBUMOUNT=$COMMAND_SMBUMOUNT_CIFS
++	SAMBA_MOUNT_SHARE_PROTOCOL=&quot;cifs&quot;
++fi
++
+ #
+ # -----------------------------------------------------------------------------
+ # Startup of nxnode
+@@ -593,11 +607,27 @@
+ 	touch &quot;$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd&quot;
+ 	
+ 	mkdir -p &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/tmp&quot; &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/certs&quot; &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/ppd&quot; &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/cache&quot;
++	mkdir -p &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/log&quot; #JJK cups log file home
++
++#JJK: Modifications to cupsd.conf
++#JJK:   - Added SystemGroup line in order to add $USER to SystemGroup
++#JJK:   - Moved all the log files to log/&lt;log&gt;
++#JJK:   - Set AccessLog to: log/access_log (was /dev/null)
++#JJK:   - Added listening on $NODE_CUPSD_PORT
++#JJK:	         Listen localhost: $NODE_CUPSD_PORT
++#JJK:   - Removed following line because directive is specific to Debian
++#JJK:       PidFile $USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd
++#JJK:   -  Access restrictions borrowed from /etc/cups/cupsd.conf
++#JJK:   -  Default policy borrowed from /etc/cups/cupsd.conf but modified
++#JJK:        to allow Add, Delete, and Default printer without (password)
++#JJK:        authentication
++#JJK:   - Note for more detailed logging set: LogLevel debug
+ 
+ cat &lt;&lt;EOF &gt; $USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf
+-AccessLog /dev/null
+-ErrorLog error_log
+-PageLog page_log
++SystemGroup sys root $USER
++AccessLog log/access_log
++ErrorLog log/error_log
++PageLog log/page_log
+ LogLevel info
+ TempDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/spool/tmp
+ RequestRoot $USER_FAKE_HOME/.nx/C-$sess_id/cups/spool
+@@ -605,19 +635,60 @@
+ StateDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/
+ CacheDir $USER_FAKE_HOME/.nx/C-$sess_id/cups/cache
+ 
++Listen localhost:$NODE_CUPSD_PORT
+ Listen $NODE_CUPSD_SOCKET
+ Browsing Off
+ ServerName localhost
+-PidFile $USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd
+ 
++#JJK:  Restrict access to the server...
+ &lt;Location /&gt;
+ Order Deny,Allow
+ Deny From All
+ Allow from 127.0.0.1
+ &lt;/Location&gt;
+ 
++#JJK: Restrict access to the admin pages...
++&lt;Location /admin&gt;
++  Encryption Required
++  Order allow,deny
++  Allow localhost
++&lt;/Location&gt;
++
++#JJK: Restrict access to configuration files...
++&lt;Location /admin/conf&gt;
++  AuthType Basic
++  Require user @SYSTEM
++  Order allow,deny
++  Allow localhost
++&lt;/Location&gt;
++
+ # Allow everything for anonymous, because we are protected through UNIX socket
++#JJK: Since allowing access via $NODE_CUPSD_PORT, need to add protection
+ &lt;Policy default&gt;
++  #JJK: Job-related operations must be done by the owner or an adminstrator...
++  &lt;Limit Send-Document Send-URI Hold-Job Release-Job Restart-Job Purge-Jobs Set-Job-Attributes Create-Job-Subscription Renew-Subscription Cancel-Subscription Get-Notifications Reprocess-Job Cancel-Current-Job Suspend-Current-Job Resume-Job CUPS-Move-Job&gt;
++    Require user @OWNER @SYSTEM
++    Order deny,allow
++  &lt;/Limit&gt;
++
++  #JJK:All administration operations require an adminstrator to authenticate...
++  &lt;Limit Pause-Printer Resume-Printer Set-Printer-Attributes Enable-Printer Disable-Printer Pause-Printer-After-Current-Job Hold-New-Jobs Release-Held-New-Jobs Deactivate-Printer Activate-Printer Restart-Printer Shutdown-Printer Startup-Printer Promote-Job Schedule-Job-After CUPS-Add-Class CUPS-Delete-Class CUPS-Accept-Jobs CUPS-Reject-Jobs&gt;
++    AuthType Basic
++    Require user @SYSTEM
++    Order deny,allow
++  &lt;/Limit&gt;
++
++  #JJK: Except need to allow these for nxnode to work
++  &lt;Limit CUPS-Add-Printer CUPS-Delete-Printer CUPS-Set-Default&gt;
++    Order deny,allow
++  &lt;/Limit&gt;
++
++  # Only the owner or an administrator can cancel or authenticate a job...
++  &lt;Limit Cancel-Job CUPS-Authenticate-Job&gt;
++    Require user @OWNER @SYSTEM
++    Order deny,allow
++  &lt;/Limit&gt;
++
+   &lt;Limit All&gt;
+     AuthType None
+     Order deny,allow
+@@ -629,9 +700,17 @@
+ 
+ 	# copy mime.* files
+ 	cp -af &quot;$CUPS_ETC&quot;/mime.* &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/&quot;
++	#JJK: Also copy over pstoraster.convs
++	cp -af &quot;$CUPS_ETC&quot;/mime.* &quot;$CUPS_ETC&quot;/pstoraster.convs &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/&quot;
+ 
+ 	# start cupsd
+-	$COMMAND_CUPSD -c &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf&quot; &amp;&gt;/dev/null &lt;/dev/null
++#JJK: Note the directive PidFile in the original cupsd.conf intended for 
++#JJK: recording the pid is a Debianism. Instead, we will use the non-daemon
++#JJK: form of cupsd and capture the pid directly
++#JJK:	$COMMAND_CUPSD -c &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf&quot; &amp;&gt;/dev/null &lt;/dev/null
++	$COMMAND_CUPSD -F -c &quot;$USER_FAKE_HOME/.nx/C-$sess_id/cups/cupsd.conf&quot; &amp;&gt;/dev/null &lt;/dev/null &amp;
++	NODE_CUPSD_PID=$!
++	echo $NODE_CUPSD_PID &gt;&quot;$USER_FAKE_HOME/.nx/C-$sess_id/pids/cupsd&quot;
+ 
+ 	# setup KDE
+ 	if [ &quot;$ENABLE_KDE_CUPS&quot; = &quot;1&quot; -a -e &quot;$KDE_PRINTRC&quot; ]
+@@ -673,6 +752,7 @@
+ 	cat &quot;$USER_FAKE_HOME/.nx/C-$sess_id/scripts/mpoint&quot; | while read mpoint
+ 	do
+ 		$COMMAND_SMBUMOUNT &quot;$mpoint&quot; &gt;/dev/null 2&gt;/dev/null
++		rmdir &quot;$mpoint&quot; &gt;/dev/null 2&gt;/dev/null #JJK:Remove mount point if empty
+ 	done
+ }
+ 
+@@ -1084,6 +1164,7 @@
+ 
+ 			COMMAND_SMBMOUNT=/bin/true
+ 			COMMAND_SMBUMOUNT=/bin/true
++			smbport=139    #JJK: still may want to do printer sharing...
+ 		else # smbfs
+ 			smbport=139
+ 		fi
+@@ -1303,7 +1384,8 @@
+ 	password=$(getparam password)
+ 	share=$(getparam share)
+ 	computername=$(getparam computername)
+-	dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
++#JJK:	dir=$(getparam dir | sed 's|$(SHARES)|MyShares|g')
++	dir=$(getparam dir | sed 's/\(%24\|\$\)(SHARES)/MyShares/g')
+ 	# rdir=$(getparam dir | sed 's|$(SHARES)/||g')
+ 	display=$(cd $USER_FAKE_HOME/.nx/; echo C-$SERVER_NAME-*-$sessionid | awk 'BEGIN {FS=&quot;-&quot;} {i=NF-1; print $i}') 
+ 	mkdir -p &quot;$HOME/$dir&quot;
+@@ -1322,6 +1404,7 @@
+ 		echo &quot;$HOME/$dir&quot; &gt;&gt; &quot;$USER_FAKE_HOME/.nx/C-$SERVER_NAME-$display-$sessionid/scripts/mpoint&quot;
+ 	else
+ 		$PATH_BIN/nxdialog -dialog ok -caption &quot;NXServer Message&quot; -message &quot;Info: Share: '//$computername/$share' failed to mount: $error&quot; -display :$display &amp;
++		rmdir &quot;$HOME/$dir&quot; &gt;/dev/null 2&gt;/dev/null #JJK: Remove mount point if empty
+ 	fi
+ }
+ 
+@@ -1344,6 +1427,12 @@
+ 	# this will also setup the userspace cupsd
+ 	export CUPS_SERVER=$(node_cupsd_get_socket)
+ 	
++#JJK: The following if-stanza kludge added to enable printing when smbport=cifs
++#JJK: since smb printing won't work when forwarded over port 445
++	if [ &quot;$SAMBA_MOUNT_SHARE_PROTOCOL&quot; = &quot;cifs&quot; ] ; then
++		let port=$port+$SMBPORT_OFFSET
++	fi
++
+ 	if [ &quot;$type&quot; = &quot;smb&quot; ]
+ 	then
+ 		DEVICE_URI=&quot;<A HREF="smb://$username:$password@127.0.0.1:$port/$share">smb://$username:$password@127.0.0.1:$port/$share</A>&quot;
+@@ -1357,6 +1446,9 @@
+ 
+ 	if [ &quot;$ENABLE_CUPS_SEAMLESS&quot; != &quot;1&quot; ]
+ 	then
++        #JJK: Export the following variables for use by nxdialog/nxprint
++        #JJK: Note they are also exported in nxdialog but doesn't help there
++	    export ENABLE_FOOMATIC COMMAND_FOOMATIC PPD_DIR
+ 		MODEL=$($PATH_BIN/nxdialog -printer &quot;$NAME&quot; -display :$display)
+ 		[ -z &quot;$MODEL&quot; -o &quot;$MODEL&quot; = &quot;cancel: aborted&quot; ] &amp;&amp; return
+ 	else
+@@ -1364,7 +1456,11 @@
+ 		MODEL=&quot;download_cached&quot;
+ 	fi
+ 	
+-	PUBLIC=&quot;-u allow:$USER&quot;
++#JJK: I like to also allow 'guest' so you can do things like print
++#JJK: testpages from the CUPS web interface. Note this is required
++#JJK: even for the original user to print test pages	
++#JJK:	PUBLIC=&quot;-u allow:$USER&quot;
++	PUBLIC=&quot;-u allow:$USER,guest&quot;	
+ 	[ &quot;$public&quot; == &quot;1&quot; ] &amp;&amp; PUBLIC=&quot;&quot;
+ 
+ 	if [ &quot;$MODEL&quot; = &quot;download_new&quot; -o &quot;$MODEL&quot; = &quot;download_cached&quot; ]
+diff -ruw nx/nxprint nx.new/nxprint
+--- nx/nxprint	2007-12-31 13:08:22.000000000 -0500
++++ nx.new/nxprint	2007-12-31 13:31:26.000000000 -0500
+@@ -51,7 +51,8 @@
+ 	if [ -z &quot;$(find $UTILITY_DRIVERS_CACHE.all -mmin -60 2&gt; /dev/null)&quot; ]
+ 	then
+ 		{ 
+-		cd /usr/share/ppd/
++#JJK:		cd /usr/share/ppd/
++		cd $PPD_DIR
+ 		awk -F '&quot;' '/\*Manufacturer:/ { a[FILENAME]=$2 }
+ 			    /\*NickName:/ { b[FILENAME]=$2 } 
+ 			    END { 
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000024.html">[Freenx-devel] Cumulative patches against 0.7.1
+</A></li>
+	<LI>Next message: <A HREF="000022.html">[Freenx-devel] Desktop applets all crash on startup
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

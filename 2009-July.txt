@@ -1,0 +1,25 @@
+From andi at dancs.at  Thu Jul 16 11:49:51 2009
+From: andi at dancs.at (Andreas Dancs)
+Date: Thu, 16 Jul 2009 11:49:51 +0200
+Subject: [Freenx-devel] FreeNX command-line client
+Message-ID: <4A5EF7BF.102@dancs.at>
+
+Hello Mailinglist!
+
+I currently use FreeNX Server with the QtNX GUI Client, but in the 
+future I want to use FreeNX without the GUI Client Apps.
+My primary goal is to start my server side programs over the command 
+line on the client side.
+
+How can i do that?
+I have read a lot, but i don't have found an command line nx-client that 
+works.
+
+If anybody knows a solution or has just a advice, please replay. THX :)
+
+
+PS: Thanks for the nice freeNX software!
+
+Andi
+
+

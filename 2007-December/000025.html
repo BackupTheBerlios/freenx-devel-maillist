@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] Misleading error message in nxloadconfig
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20Misleading%20error%20message%20in%20nxloadconfig&In-Reply-To=%3C18297.14264.533466.269791%40consult.pretender%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000023.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] Misleading error message in nxloadconfig</H1>
+    <B>Jeffrey J. Kosowsky</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20Misleading%20error%20message%20in%20nxloadconfig&In-Reply-To=%3C18297.14264.533466.269791%40consult.pretender%3E"
+       TITLE="[Freenx-devel] Misleading error message in nxloadconfig">berlios at kosowsky.org
+       </A><BR>
+    <I>Mon Dec 31 19:40:56 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000023.html">[Freenx-devel] Weird crash of free nx session when browsing cups through the web remotely
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>The warning  messages:
+	Warning: Invalid value &quot;COMMAND_SMBMOUNT=smbmount&quot;. You'll not be able
+	to use SAMBA.
+	Warning: Invalid value &quot;COMMAND_SMBUMOUNT=smbumount&quot;. You'll not be
+	able to use SAMBA.
+are a bit misleading. The probably should say something more like
+	&quot;... You'll not be able to use SAMBA over port 139 (smbfs)&quot;
+
+Also, similar, parallel error messages should probably now be added
+for COMMAND_SMBMOUNT_CIFS and COMMAND_SMBUMOUNT_CIFS.
+
+More, generally, nxloadconfig could probably use a good scrubbing
+since checking seems to be missing from the addition of several new shell variables.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000023.html">[Freenx-devel] Weird crash of free nx session when browsing cups through the web remotely
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>

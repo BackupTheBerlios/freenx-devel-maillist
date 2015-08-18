@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Freenx-devel] Weird crash of free nx session when browsing cups through the web remotely
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/freenx-devel/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20Weird%20crash%20of%20free%20nx%20session%20when%20browsing%20cups%0A%20through%20the%20web%20remotely&In-Reply-To=%3C18296.8644.576000.560398%40gargle.gargle.HOWL%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000022.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Freenx-devel] Weird crash of free nx session when browsing cups through the web remotely</H1>
+    <B>Jeffrey J. Kosowsky</B> 
+    <A HREF="mailto:freenx-devel%40lists.berlios.de?Subject=Re%3A%20%5BFreenx-devel%5D%20Weird%20crash%20of%20free%20nx%20session%20when%20browsing%20cups%0A%20through%20the%20web%20remotely&In-Reply-To=%3C18296.8644.576000.560398%40gargle.gargle.HOWL%3E"
+       TITLE="[Freenx-devel] Weird crash of free nx session when browsing cups through the web remotely">berlios at kosowsky.org
+       </A><BR>
+    <I>Sun Dec 30 23:55:00 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000022.html">[Freenx-devel] Desktop applets all crash on startup
+</A></li>
+        <LI>Next message: <A HREF="000025.html">[Freenx-devel] Misleading error message in nxloadconfig
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>This is a weird one and has me stumped.
+
+I am using freenx with printer sharing to log into my Fedora8 server
+running freenx 0.7.1
+The client runs WinXP with NoMachines NX Client for Windows 3.0.0-78.
+
+When I use smbport=139 to enable printer sharing, I am able to print
+fine from the command line (using lpr -h locahost:11001 -P
+&lt;myprinter&gt;) and also am able to use the cups browser at
+<A HREF="http://localhost:11001">http://localhost:11001</A> to manage the printer and print test pages from
+within the nx client (i.e. running the web browser from localhost =
+Fedora nx server)
+
+However, when I manually set up a parallel ssh tunnel from my Windoze
+machine using -L 11001:localhost:11001 to browse the cups printer
+interface from my Windows client, everything works fine until I try to
+print a test page. The test page actually prints fine, but shortly
+after the test page goes to the printer, the nx client crashes. The
+session is still there but the client freezes.
+
+Interestingly, if using my patches (see earlier messages), I set
+smbport=cifs (445) and then set up a parallel ssh tunnel to manage the
+cups printing (using -R 13001:&lt;windozeclient&gt;:139) along with another
+tunnel (-L 11001:localhost:11001) to forward the cups web interface, I
+am able to print test pages just fine from the cups web browser on my
+Windows machine.
+
+So, anybody have any ideas why the following occurs:
+- Printing test pages from the cups web interface on localhost
+  independent of whether tunnel is the standard nx/frenx smbfs tunnel
+  (&lt;DISPLAY+3000&gt; -&gt; 139) or my own manual tunnel (13001 -&gt; 139).
+
+- Printing test pages from cups web interface browsed remotely on my Windows
+  machine (by forwarding 11001 -&gt; 11001) works when printing over my
+  own manual tunnel (13001 -&gt; 139) but crashes the nx client when using the
+  default smbfs tunnel (&lt;DISPLAY+3000&gt; -&gt; 139).
+
+In fact, I can narrow down the difference further but setting up two
+artificial test cases with a common setup of forwarding -R
+13001:&lt;mymachine&gt;:139 -L 11001:localhost:11001 and in both cases doing
+the printing over port 13001 and the browsing remotely over 11001.
+The only difference in the entire setup is then:
+	- Case A: smbport=139  -- crashes after sending test page to
+	  	   	  printer
+	- Case B: smbport=445 -- no crash after sending test page to
+	  	   	  printer 
+
+I don't have any clue why I would be seeing such conflicting
+behavior. In particular, why does printing a test page over ssh
+forwarding of port 11001 kill the nx client session when smbport=139
+but not when smbport=445?
+
+I'm stumped...
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000022.html">[Freenx-devel] Desktop applets all crash on startup
+</A></li>
+	<LI>Next message: <A HREF="000025.html">[Freenx-devel] Misleading error message in nxloadconfig
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#23">[ date ]</a>
+              <a href="thread.html#23">[ thread ]</a>
+              <a href="subject.html#23">[ subject ]</a>
+              <a href="author.html#23">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/freenx-devel">More information about the Freenx-devel
+mailing list</a><br>
+</body></html>
